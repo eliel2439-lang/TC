@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plena Gestão Condominial · Gestão 360º para o seu condomínio</title>
+<meta name="description" content="Gestão condominial 360º: financeira, administrativa, jurídica e operacional. Diagnóstico gratuito e plano estruturado de transição.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#0B4CFF;
+    --blue-deep:#02174F;
+    --blue-mid:#0A2E9E;
+    --blue-glow:#5B8CFF;
+    --blue-tint:#EAF0FF;
+    --ink:#081026;
+    --ink-soft:#3A4566;
+    --paper:#F6F8FD;
+    --line:#DCE3F5;
+    --amber:#FFB020;
+    --amber-deep:#DB8B00;
+    --ok:#1E9E6B;
+    --warn:#DB8B00;
+    --danger:#E5484D;
+    --white:#FFFFFF;
+    --radius:6px;
+    --serif:'Fraunces', Georgia, serif;
+    --sans:'Inter', -apple-system, sans-serif;
+    --mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--sans);
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{max-width:100%; display:block;}
+  a{color:inherit;}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 28px;}
+  section{position:relative;}
+
+  /* reading progress bar */
+  .read-bar{position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--blue),var(--blue-glow)); width:0%; z-index:99; transition:width .1s linear;}
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  .reveal-stagger.in > *{animation:fadeUp .6s cubic-bezier(.16,.8,.3,1) both;}
+  .reveal-stagger.in > *:nth-child(1){animation-delay:.02s;}
+  .reveal-stagger.in > *:nth-child(2){animation-delay:.09s;}
+  .reveal-stagger.in > *:nth-child(3){animation-delay:.16s;}
+  .reveal-stagger.in > *:nth-child(4){animation-delay:.23s;}
+  .reveal-stagger.in > *:nth-child(5){animation-delay:.30s;}
+  .reveal-stagger.in > *:nth-child(6){animation-delay:.37s;}
+  .reveal-stagger.in > *:nth-child(7){animation-delay:.44s;}
+  .reveal-stagger.in > *:nth-child(8){animation-delay:.51s;}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);}}
+
+  h1,h2,h3,h4{font-family:var(--serif); font-weight:600; letter-spacing:-0.015em; color:var(--ink);}
+  h1{font-size:clamp(2.6rem, 5.4vw, 4.4rem); line-height:1.02; font-weight:700;}
+  h2{font-size:clamp(1.8rem, 3.2vw, 2.7rem); line-height:1.1;}
+  h3{font-size:1.32rem; line-height:1.25;}
+  p{max-width:62ch;}
+  .lede{font-size:1.18rem; color:var(--ink-soft); max-width:54ch;}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:16px 28px; border-radius:var(--radius);
+    font-weight:700; font-size:0.98rem; text-decoration:none;
+    border:1px solid transparent; cursor:pointer; font-family:var(--sans);
+    transition:transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s ease, background .18s ease;
+  }
+  .btn-primary{background:var(--blue); color:var(--white); box-shadow:0 8px 24px -8px rgba(11,76,255,0.55);}
+  .btn-primary:hover{transform:translateY(-2px) scale(1.02); box-shadow:0 14px 30px -8px rgba(11,76,255,0.6);}
+  .btn-amber{background:var(--amber); color:var(--blue-deep); box-shadow:0 8px 20px -8px rgba(255,176,32,0.6);}
+  .btn-amber:hover{transform:translateY(-2px) scale(1.02); background:#FFC257;}
+  .btn-ghost{background:transparent; border-color:rgba(255,255,255,0.4); color:var(--white);}
+  .btn-ghost:hover{background:rgba(255,255,255,0.12); transform:translateY(-2px);}
+  .btn-ghost-dark{background:transparent; border-color:var(--ink); color:var(--ink);}
+  .btn-ghost-dark:hover{background:var(--ink); color:var(--paper); transform:translateY(-2px);}
+  .btn-wa{background:#1E9E6B; color:#fff; box-shadow:0 8px 20px -8px rgba(30,158,107,0.55);}
+  .btn-wa:hover{background:#178556; transform:translateY(-2px) scale(1.02);}
+  .btn-sm{padding:11px 20px; font-size:0.9rem;}
+
+  /* HEADER */
+  header{
+    position:sticky; top:0; z-index:60;
+    background:rgba(246,248,253,0.85); backdrop-filter:blur(10px) saturate(1.4);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 0;}
+  .logo{font-family:var(--serif); font-weight:700; font-size:1.3rem; display:flex; align-items:center; gap:8px;}
+  .logo .dot{width:9px; height:9px; border-radius:50%; background:var(--blue); box-shadow:0 0 0 4px var(--blue-tint);}
+  .navlinks{display:flex; gap:32px; list-style:none; font-size:0.94rem; font-weight:600;}
+  .navlinks a{text-decoration:none; opacity:0.72; position:relative; padding-bottom:4px;}
+  .navlinks a::after{content:''; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--blue); transition:width .2s ease;}
+  .navlinks a:hover{opacity:1;}
+  .navlinks a:hover::after{width:100%;}
+  .navcta{display:flex; gap:12px; align-items:center;}
+  .burger{display:none; background:none; border:none; font-size:1.5rem; cursor:pointer;}
+  @media(max-width:900px){ .navlinks{display:none;} .navcta .ghost-desktop{display:none;} }
+
+  /* HERO */
+  .hero{
+    padding:96px 0 80px; overflow:hidden; position:relative;
+    background:radial-gradient(ellipse 900px 500px at 85% -10%, rgba(11,76,255,0.16), transparent 60%),
+               radial-gradient(ellipse 700px 500px at -10% 30%, rgba(255,176,32,0.10), transparent 60%);
+  }
+  .hero-inner{display:grid; grid-template-columns:1.05fr 0.95fr; gap:60px; align-items:center; position:relative; z-index:2;}
+  @media(max-width:900px){.hero-inner{grid-template-columns:1fr;}}
+  .eyebrow-tag{
+    display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:0.72rem;
+    color:var(--blue); background:var(--blue-tint); padding:7px 14px;
+    border-radius:20px; margin-bottom:24px; letter-spacing:0.02em; font-weight:600;
+  }
+  .eyebrow-tag .pulse{width:7px; height:7px; border-radius:50%; background:var(--blue); animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(11,76,255,0.5);} 70%{box-shadow:0 0 0 8px rgba(11,76,255,0);} 100%{box-shadow:0 0 0 0 rgba(11,76,255,0);}}
+  .hero h1 span.hl{background:linear-gradient(90deg, var(--blue), var(--blue-glow)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero-ctas{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
+  .hero-stats{display:flex; gap:40px; margin-top:56px; flex-wrap:wrap;}
+  .stat b{display:block; font-family:var(--serif); font-size:2.2rem; color:var(--blue); font-variant-numeric:tabular-nums;}
+  .stat span{font-size:0.85rem; color:var(--ink-soft);}
+
+  .hero-panel{
+    background:linear-gradient(160deg, var(--blue-deep), var(--blue-mid) 120%);
+    color:var(--white); border-radius:16px;
+    padding:36px; position:relative; box-shadow:0 30px 60px -20px rgba(2,23,79,0.45);
+    transform:rotate(1.2deg);
+    animation:floaty 6s ease-in-out infinite;
+  }
+  @keyframes floaty{0%,100%{transform:rotate(1.2deg) translateY(0);} 50%{transform:rotate(1.2deg) translateY(-10px);}}
+  .hero-panel::before{
+    content:''; position:absolute; inset:0; border-radius:16px; padding:1px;
+    background:linear-gradient(160deg, rgba(255,255,255,0.4), transparent 40%);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none;
+  }
+  .hero-panel .tag{font-family:var(--mono); font-size:0.72rem; opacity:0.65; margin-bottom:20px; display:block; letter-spacing:0.03em;}
+  .hp-row{display:flex; justify-content:space-between; align-items:center; padding:13px 0; border-bottom:1px solid rgba(255,255,255,0.14); font-size:0.94rem;}
+  .hp-row:last-of-type{border-bottom:none;}
+  .hp-row b{color:var(--white); font-variant-numeric:tabular-nums;}
+  .hp-bar-track{width:90px; height:5px; background:rgba(255,255,255,0.15); border-radius:3px; overflow:hidden;}
+  .hp-bar-fill{height:100%; background:var(--amber); border-radius:3px;}
+  .hp-score{font-family:var(--serif); font-size:2.8rem; color:var(--amber); margin:16px 0 4px;}
+
+  /* logo marquee */
+  .marquee-sec{padding:36px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--white); overflow:hidden;}
+  .marquee-label{font-family:var(--mono); font-size:0.72rem; color:var(--ink-soft); text-align:center; margin-bottom:18px; letter-spacing:0.03em;}
+  .marquee-track{display:flex; gap:64px; width:max-content; animation:scroll 26s linear infinite; align-items:center;}
+  .marquee-track span{font-family:var(--serif); font-size:1.3rem; color:var(--ink-soft); opacity:0.55; white-space:nowrap;}
+  @keyframes scroll{from{transform:translateX(0);} to{transform:translateX(-50%);}}
+
+  /* SECTION HEADERS */
+  .sec-head{max-width:660px; margin-bottom:52px;}
+  .sec-head.center{margin-left:auto; margin-right:auto; text-align:center;}
+  .sec{padding:100px 0;}
+  .sec-alt{background:var(--white); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .sec-dark{background:radial-gradient(ellipse 800px 500px at 90% 0%, rgba(11,76,255,0.35), transparent 60%), var(--blue-deep); color:var(--white);}
+  .sec-dark h2, .sec-dark h3, .sec-dark h4{color:var(--white);}
+  .sec-dark .lede{color:#B7C4EE;}
+
+  /* PROBLEMS */
+  .problem-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden;}
+  @media(max-width:760px){.problem-grid{grid-template-columns:1fr;}}
+  .problem-card{background:var(--white); padding:32px 28px; transition:background .2s ease, transform .2s ease;}
+  .problem-card:hover{background:var(--blue-tint); transform:translateY(-2px);}
+  .problem-card .pnum{font-family:var(--mono); font-size:0.78rem; color:var(--blue); display:block; margin-bottom:14px; font-weight:600;}
+  .problem-card h3{margin-bottom:10px; font-size:1.15rem;}
+  .problem-card p{font-size:0.94rem; color:var(--ink-soft);}
+
+  /* SERVICES 360 - icon grid like reference site */
+  .svc360-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--line); border-radius:14px; overflow:hidden; border:1px solid var(--line); margin-top:10px;}
+  @media(max-width:820px){.svc360-grid{grid-template-columns:repeat(2,1fr);}}
+  .svc360-card{
+    background:var(--white); padding:34px 22px; text-align:center; cursor:default;
+    transition:background .25s ease, transform .25s ease;
+  }
+  .svc360-card:hover{background:var(--blue); transform:scale(1.03); z-index:2; position:relative;}
+  .svc360-card:hover h4, .svc360-card:hover p{color:#fff;}
+  .svc360-icon{
+    width:56px; height:56px; margin:0 auto 16px; border-radius:50%;
+    background:var(--blue-tint); display:flex; align-items:center; justify-content:center;
+    font-family:var(--serif); font-size:1.3rem; color:var(--blue); font-weight:700;
+    transition:background .25s ease, color .25s ease;
+  }
+  .svc360-card:hover .svc360-icon{background:rgba(255,255,255,0.2); color:#fff;}
+  .svc360-card h4{font-size:0.98rem; margin-bottom:6px; transition:color .25s ease;}
+  .svc360-card p{font-size:0.8rem; color:var(--ink-soft); transition:color .25s ease; margin:0 auto;}
+
+  /* feature rows (Financeiro / Zeladoria / Transparencia style) */
+  .feature-row{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; padding:70px 0; border-top:1px solid var(--line);}
+  .feature-row:first-of-type{border-top:none;}
+  @media(max-width:860px){.feature-row{grid-template-columns:1fr; gap:30px;}}
+  .feature-row.rev .f-visual{order:2;}
+  @media(max-width:860px){.feature-row.rev .f-visual{order:0;}}
+  .f-visual{
+    aspect-ratio:4/3; border-radius:16px; position:relative; overflow:hidden;
+    background:linear-gradient(135deg, var(--blue-tint), #fff);
+    display:flex; align-items:center; justify-content:center; border:1px solid var(--line);
+  }
+  .f-visual .big-num{font-family:var(--serif); font-size:5rem; color:var(--blue); opacity:0.9;}
+  .f-visual::after{content:''; position:absolute; width:180px; height:180px; background:radial-gradient(circle, rgba(11,76,255,0.18), transparent 70%); top:-40px; right:-40px; border-radius:50%;}
+  .f-eyebrow{font-family:var(--mono); font-size:0.75rem; color:var(--blue); font-weight:600; margin-bottom:14px; display:block;}
+  .f-text h3{margin-bottom:14px; font-size:1.7rem;}
+  .f-text p{color:var(--ink-soft); margin-bottom:20px;}
+  .f-list{list-style:none; display:grid; gap:10px;}
+  .f-list li{display:flex; gap:10px; font-size:0.94rem; align-items:flex-start;}
+  .f-list li::before{content:'✓'; color:var(--blue); font-weight:700; flex-shrink:0;}
+
+  /* QUIZ */
+  .quiz-shell{
+    background:var(--white); border:1px solid var(--line); border-radius:18px;
+    max-width:740px; margin:0 auto; overflow:hidden; box-shadow:0 30px 70px -30px rgba(11,76,255,0.25);
+  }
+  .quiz-top{padding:28px 36px 0;}
+  .quiz-progress-track{height:5px; background:var(--blue-tint); border-radius:3px; overflow:hidden; margin:16px 0 6px;}
+  .quiz-progress-bar{height:100%; background:linear-gradient(90deg,var(--blue),var(--blue-glow)); width:8%; transition:width .35s cubic-bezier(.16,.8,.3,1);}
+  .quiz-meta{display:flex; justify-content:space-between; font-family:var(--mono); font-size:0.72rem; color:var(--ink-soft); margin-bottom:10px;}
+  .quiz-body{padding:12px 36px 36px;}
+  .q-step{display:none;}
+  .q-step.active{display:block; animation:fadein .3s cubic-bezier(.16,.8,.3,1);}
+  @keyframes fadein{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+  .q-title{font-size:1.4rem; margin-bottom:24px;}
+  .opt-grid{display:grid; gap:11px;}
+  .opt{
+    display:flex; align-items:center; gap:14px;
+    padding:17px 20px; border:1.5px solid var(--line); border-radius:12px;
+    cursor:pointer; font-size:0.98rem; background:var(--paper); transition:all .15s ease;
+  }
+  .opt:hover{border-color:var(--blue); background:var(--blue-tint); transform:translateX(3px);}
+  .opt.selected{border-color:var(--blue); background:var(--blue-tint); box-shadow:0 4px 14px -4px rgba(11,76,255,0.3);}
+  .opt .dot{width:18px; height:18px; border-radius:50%; border:2px solid var(--ink-soft); flex-shrink:0; transition:all .15s ease;}
+  .opt.selected .dot{border-color:var(--blue); background:var(--blue); box-shadow:0 0 0 3px var(--blue-tint);}
+  .q-nav{display:flex; justify-content:space-between; margin-top:28px; align-items:center;}
+  .q-back{background:none; border:none; color:var(--ink-soft); font-size:0.9rem; cursor:pointer; text-decoration:underline;}
+  .q-back:disabled{visibility:hidden;}
+  input[type=text], input[type=tel], input[type=email]{
+    width:100%; padding:15px 17px; border:1.5px solid var(--line); border-radius:10px;
+    font-family:var(--sans); font-size:1rem; margin-bottom:14px; background:var(--paper);
+    transition:border-color .15s ease;
+  }
+  input:focus{outline:none; border-color:var(--blue); box-shadow:0 0 0 3px var(--blue-tint);}
+  label.f-label{font-size:0.85rem; font-weight:700; color:var(--ink-soft); display:block; margin-bottom:6px;}
+
+  .result-head{text-align:center; padding:6px 0 20px;}
+  .result-score{font-family:var(--serif); font-size:4.6rem; color:var(--blue); line-height:1;}
+  .result-tag{display:inline-block; margin-top:10px; font-family:var(--mono); font-size:0.75rem; padding:6px 16px; border-radius:20px; font-weight:700;}
+  .breakdown{display:grid; gap:15px; margin:28px 0;}
+  .bd-row{display:grid; grid-template-columns:130px 1fr 40px; align-items:center; gap:12px; font-size:0.88rem;}
+  .bd-track{height:9px; background:var(--blue-tint); border-radius:5px; overflow:hidden;}
+  .bd-fill{height:100%; border-radius:5px; width:0; transition:width 1s cubic-bezier(.16,.8,.3,1);}
+  .confirm-box{text-align:center; background:var(--blue-tint); border-radius:14px; padding:30px 26px; margin-top:6px;}
+  .confirm-icon{width:48px; height:48px; border-radius:50%; background:var(--ok); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.3rem; margin:0 auto 14px;}
+  .confirm-box h4{font-size:1.15rem; margin-bottom:8px;}
+  .confirm-box p{font-size:0.92rem; color:var(--ink-soft); margin:0 auto; max-width:36ch;}
+
+  /* METHOD */
+  .method-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:24px; margin-top:10px;}
+  @media(max-width:900px){.method-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:520px){.method-grid{grid-template-columns:1fr;}}
+  .method-card{padding-top:22px; border-top:3px solid var(--blue); transition:transform .2s ease;}
+  .method-card:hover{transform:translateY(-6px);}
+  .method-card .mnum{font-family:var(--mono); font-size:0.75rem; color:var(--blue); display:block; margin-bottom:10px; font-weight:700;}
+  .method-card h4{font-size:1.05rem; margin-bottom:8px;}
+  .method-card p{font-size:0.88rem; color:var(--ink-soft);}
+
+  /* TIMELINE */
+  .timeline{display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:rgba(255,255,255,0.12); border-radius:14px; overflow:hidden; margin-top:10px;}
+  @media(max-width:820px){.timeline{grid-template-columns:1fr 1fr;}}
+  @media(max-width:520px){.timeline{grid-template-columns:1fr;}}
+  .tl-card{background:var(--blue-deep); padding:30px 24px; transition:background .2s ease;}
+  .tl-card:hover{background:var(--blue-mid);}
+  .tl-card .tl-days{font-family:var(--mono); font-size:0.78rem; color:var(--amber); display:block; margin-bottom:12px; font-weight:700;}
+  .tl-card ul{list-style:none; font-size:0.86rem; color:#C7D3F5;}
+  .tl-card li{padding:6px 0; border-top:1px solid rgba(255,255,255,0.1);}
+  .tl-card li:first-child{border-top:none;}
+
+  /* CASES */
+  .case-grid{display:grid; grid-template-columns:1fr 1fr; gap:26px;}
+  @media(max-width:820px){.case-grid{grid-template-columns:1fr;}}
+  .case-card{background:var(--white); border:1px solid var(--line); padding:32px; border-radius:16px; transition:box-shadow .2s ease, transform .2s ease;}
+  .case-card:hover{box-shadow:0 20px 50px -20px rgba(11,76,255,0.3); transform:translateY(-4px);}
+  .case-tag{font-family:var(--mono); font-size:0.72rem; color:var(--ok); margin-bottom:14px; display:block; font-weight:600;}
+  .case-card h3{margin-bottom:18px;}
+  .case-block{margin-bottom:14px;}
+  .case-block b{display:block; font-size:0.78rem; color:var(--ink-soft); margin-bottom:4px;}
+  .case-block span{font-size:0.92rem;}
+
+  /* TEAM */
+  .team-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:26px;}
+  @media(max-width:820px){.team-grid{grid-template-columns:1fr 1fr;}}
+  .team-card{transition:transform .2s ease;}
+  .team-card:hover{transform:translateY(-6px);}
+  .team-card .avatar{width:100%; aspect-ratio:1; background:linear-gradient(135deg,var(--blue-tint),#fff); border:1px solid var(--line); border-radius:14px; margin-bottom:14px; display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:1.9rem; color:var(--blue);}
+  .team-card h4{font-size:0.98rem; margin-bottom:2px;}
+  .team-card span{font-size:0.82rem; color:var(--ink-soft);}
+
+  /* TESTIMONIALS */
+  .test-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  @media(max-width:820px){.test-grid{grid-template-columns:1fr;}}
+  .test-card{background:var(--white); border:1px solid var(--line); padding:28px; border-radius:14px; transition:transform .2s ease, box-shadow .2s ease;}
+  .test-card:hover{transform:translateY(-4px); box-shadow:0 16px 40px -18px rgba(11,76,255,0.25);}
+  .test-card .stars{color:var(--amber); font-size:0.9rem; margin-bottom:12px; letter-spacing:2px;}
+  .test-card p{font-size:0.95rem; font-style:italic; color:var(--ink);}
+  .test-who{margin-top:16px; font-size:0.85rem; color:var(--ink-soft); font-style:normal;}
+
+  /* FAQ */
+  .faq-item{border-bottom:1px solid var(--line); padding:24px 0;}
+  .faq-q{display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-weight:700; font-size:1.04rem;}
+  .faq-q .plus{font-size:1.4rem; color:var(--blue); transition:transform .25s ease;}
+  .faq-item.open .plus{transform:rotate(135deg);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .3s ease;}
+  .faq-a p{padding-top:12px; font-size:0.94rem; color:var(--ink-soft);}
+
+  /* FINAL CTA */
+  .final-cta{text-align:center; padding:110px 0; position:relative; overflow:hidden;}
+  .final-cta::before{content:''; position:absolute; width:600px; height:600px; background:radial-gradient(circle,rgba(255,176,32,0.18),transparent 70%); top:-200px; left:50%; transform:translateX(-50%); pointer-events:none;}
+  .final-cta h2{max-width:720px; margin:0 auto 18px; position:relative;}
+  .final-cta .lede{margin:0 auto 36px; position:relative;}
+  .final-ctas{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; position:relative;}
+
+  footer{background:var(--blue-deep); color:#94A4D9; padding:56px 0 30px; font-size:0.85rem;}
+  .foot-grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:30px; padding-bottom:34px; border-bottom:1px solid rgba(255,255,255,0.1);}
+  .foot-logo{font-family:var(--serif); color:var(--white); font-size:1.15rem; margin-bottom:10px; display:flex; align-items:center; gap:8px;}
+  .foot-cols{display:flex; gap:64px; flex-wrap:wrap;}
+  .foot-col h5{color:var(--white); font-size:0.8rem; margin-bottom:14px; font-weight:700;}
+  .foot-col a{display:block; color:#94A4D9; text-decoration:none; padding:5px 0; font-size:0.85rem; transition:color .15s ease;}
+  .foot-col a:hover{color:#fff;}
+  .foot-bottom{padding-top:24px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+
+  .wa-float{
+    position:fixed; bottom:26px; right:26px; z-index:70;
+    background:#1E9E6B; color:#fff; width:62px; height:62px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; text-decoration:none;
+    box-shadow:0 10px 26px rgba(30,158,107,0.45); animation:floatBtn 3s ease-in-out infinite;
+  }
+  @keyframes floatBtn{0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);}}
+  .wa-float svg{width:30px; height:30px;}
+
+  ::selection{background:var(--blue); color:var(--white);}
+
+  /* HERO PHOTO */
+  .hero-photo-wrap{position:absolute; inset:0; z-index:0; overflow:hidden;}
+  .hero-photo-wrap img{width:100%; height:100%; object-fit:cover; opacity:0.16; filter:saturate(0.4);}
+  .hero-photo-wrap::after{content:''; position:absolute; inset:0; background:linear-gradient(180deg, var(--paper) 0%, rgba(246,248,253,0.55) 55%, var(--paper) 100%);}
+  .cursor-glow{position:fixed; width:420px; height:420px; border-radius:50%; pointer-events:none; z-index:1; background:radial-gradient(circle, rgba(11,76,255,0.10), transparent 70%); transform:translate(-50%,-50%); transition:opacity .3s ease; opacity:0;}
+
+  /* MAGNETIC BUTTON WRAPPER */
+  .magnetic{display:inline-block;}
+
+  /* ANTES/DEPOIS */
+  .compare-wrap{max-width:900px; margin:0 auto; border-radius:18px; overflow:hidden; border:1px solid var(--line); box-shadow:0 30px 70px -35px rgba(11,76,255,0.3); user-select:none;}
+  .compare-slider{position:relative; height:340px; cursor:ew-resize;}
+  .compare-side{position:absolute; inset:0; padding:36px 40px; display:flex; flex-direction:column; justify-content:center;}
+  .compare-before{background:linear-gradient(135deg,#2B2222,#3A2A2A); color:#F2D9D6;}
+  .compare-after{background:linear-gradient(135deg,var(--blue-deep),var(--blue-mid)); color:#fff; clip-path:inset(0 0 0 50%);}
+  .compare-label{font-family:var(--mono); font-size:0.75rem; letter-spacing:0.04em; opacity:0.75; margin-bottom:12px;}
+  .compare-side h4{color:inherit; font-size:1.3rem; margin-bottom:14px;}
+  .compare-side ul{list-style:none; display:grid; gap:9px;}
+  .compare-side li{font-size:0.92rem; display:flex; gap:8px; align-items:flex-start;}
+  .compare-before li::before{content:'✕'; color:#E5A9A4; flex-shrink:0;}
+  .compare-after li::before{content:'✓'; color:var(--amber); flex-shrink:0;}
+  .compare-handle{position:absolute; top:0; bottom:0; left:50%; width:0; z-index:5; transform:translateX(-50%);}
+  .compare-handle-line{position:absolute; top:0; bottom:0; left:0; width:3px; background:#fff; box-shadow:0 0 0 1px rgba(0,0,0,0.1);}
+  .compare-handle-grip{position:absolute; top:50%; left:0; transform:translate(-50%,-50%); width:44px; height:44px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(0,0,0,0.25); font-size:1rem; color:var(--blue); font-weight:700;}
+  .compare-caption{text-align:center; padding:16px; font-size:0.82rem; color:var(--ink-soft); background:var(--white); font-family:var(--mono);}
+
+  /* DASHBOARD MOCKUP */
+  .dash-mock{
+    background:var(--white); border:1px solid var(--line); border-radius:16px; overflow:hidden;
+    box-shadow:0 30px 70px -30px rgba(11,76,255,0.28); max-width:920px; margin:0 auto;
+  }
+  .dash-topbar{background:var(--blue-deep); padding:14px 22px; display:flex; align-items:center; gap:8px;}
+  .dash-dot{width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.3);}
+  .dash-title{margin-left:10px; color:#B7C4EE; font-family:var(--mono); font-size:0.78rem;}
+  .dash-body{padding:32px; display:grid; grid-template-columns:1.3fr 1fr; gap:28px;}
+  @media(max-width:700px){.dash-body{grid-template-columns:1fr;}}
+  .dash-chart{display:flex; align-items:flex-end; gap:10px; height:160px; padding-top:10px; border-bottom:1px solid var(--line);}
+  .dash-bar{flex:1; background:linear-gradient(180deg, var(--blue-glow), var(--blue)); border-radius:6px 6px 0 0; transform:scaleY(0); transform-origin:bottom; transition:transform 1s cubic-bezier(.16,.8,.3,1);}
+  .dash-bar.in{transform:scaleY(1);}
+  .dash-chart-label{display:flex; justify-content:space-between; font-family:var(--mono); font-size:0.68rem; color:var(--ink-soft); margin-top:8px;}
+  .dash-cards{display:grid; gap:14px;}
+  .dash-card{background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:16px 18px;}
+  .dash-card .dc-label{font-size:0.78rem; color:var(--ink-soft); margin-bottom:4px;}
+  .dash-card .dc-val{font-family:var(--serif); font-size:1.5rem; color:var(--blue);}
+  .dash-card .dc-val.ok{color:var(--ok);}
+
+  /* LEAD MAGNET */
+  .magnet-box{
+    display:grid; grid-template-columns:auto 1fr auto; gap:28px; align-items:center;
+    background:linear-gradient(120deg, var(--blue-tint), #fff); border:1px solid var(--line);
+    border-radius:18px; padding:36px 40px; max-width:920px; margin:0 auto;
+  }
+  @media(max-width:700px){.magnet-box{grid-template-columns:1fr; text-align:center;}}
+  .magnet-icon{width:64px; height:64px; border-radius:14px; background:var(--blue); display:flex; align-items:center; justify-content:center; color:#fff; font-family:var(--serif); font-size:1.6rem; flex-shrink:0;}
+  @media(max-width:700px){.magnet-icon{margin:0 auto;}}
+  .magnet-box h3{margin-bottom:6px;}
+  .magnet-box p{font-size:0.92rem; color:var(--ink-soft); margin:0;}
+
+  .team-card .avatar-photo{width:100%; aspect-ratio:1; border-radius:14px; overflow:hidden; margin-bottom:14px; border:1px solid var(--line);}
+  .team-card .avatar-photo img{width:100%; height:100%; object-fit:cover; filter:grayscale(0.15);}
+  .case-card .case-photo{width:100%; aspect-ratio:16/9; border-radius:12px; overflow:hidden; margin-bottom:18px;}
+  .case-card .case-photo img{width:100%; height:100%; object-fit:cover;}
+
+  /* 3D TILT */
+  .tilt{will-change:transform;}
+  .svc360-card, .method-card, .case-card, .test-card, .hero-panel, .quiz-shell, .dash-mock{transform-style:preserve-3d;}
+
+  /* HERO 3D BLOBS */
+  .hero-blob{position:absolute; border-radius:50%; filter:blur(70px); pointer-events:none; z-index:0; will-change:transform;}
+  .blob1{width:360px; height:360px; background:radial-gradient(circle, rgba(11,76,255,0.4), transparent 72%); top:-100px; right:8%;}
+  .blob2{width:280px; height:280px; background:radial-gradient(circle, rgba(255,176,32,0.3), transparent 72%); bottom:-80px; left:2%;}
+  .blob3{width:200px; height:200px; background:radial-gradient(circle, rgba(91,140,255,0.35), transparent 72%); top:40%; left:35%;}
+
+  /* FUNNEL STEPPER */
+  .funnel-track{position:relative; display:flex; justify-content:space-between; max-width:960px; margin:20px auto 0; padding-top:10px;}
+  @media(max-width:820px){.funnel-track{flex-direction:column; gap:34px; align-items:flex-start; padding-left:26px;}}
+  .funnel-line{position:absolute; top:27px; left:5%; right:5%; height:2px; background:var(--line); z-index:0;}
+  .funnel-line-fill{position:absolute; top:0; left:0; height:100%; width:0; background:linear-gradient(90deg,var(--blue),var(--blue-glow)); transition:width 1.4s cubic-bezier(.16,.8,.3,1);}
+  @media(max-width:820px){.funnel-line{top:0; bottom:0; left:13px; right:auto; width:2px; height:auto;} .funnel-line-fill{width:100%; height:0;}}
+  .funnel-step{position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; text-align:center; width:150px;}
+  @media(max-width:820px){.funnel-step{flex-direction:row; text-align:left; width:auto; align-items:flex-start; gap:16px;}}
+  .fs-dot{
+    width:54px; height:54px; border-radius:50%; background:var(--white); border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-weight:700; font-size:1.2rem;
+    color:var(--ink-soft); margin-bottom:14px; transition:all .25s cubic-bezier(.34,1.56,.64,1); flex-shrink:0;
+  }
+  .funnel-step:hover .fs-dot{background:var(--blue); border-color:var(--blue); color:#fff; transform:scale(1.15) translateZ(20px); box-shadow:0 14px 28px -10px rgba(11,76,255,0.5);}
+  .funnel-step h4{font-size:0.98rem; margin-bottom:4px;}
+  .funnel-step p{font-size:0.82rem; color:var(--ink-soft); max-width:150px;}
+
+  /* ===== PAINEL CRM (embutido no mesmo site) ===== */
+  #appView{background:var(--blue-deep); min-height:100vh;}
+  .gate{position:fixed; inset:0; background:var(--blue-deep); display:flex; align-items:center; justify-content:center; z-index:200;}
+  .gate-box{background:var(--blue-mid); border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:38px; width:320px; text-align:center;}
+  .gate-box .gi{width:48px; height:48px; border-radius:50%; background:var(--amber); color:var(--blue-deep); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:1.3rem;}
+  .gate-box h3{color:#fff; font-family:var(--serif); margin-bottom:6px;}
+  .gate-box p{color:#B7C4EE; font-size:0.84rem; margin-bottom:22px; max-width:none;}
+  .gate-box input{width:100%; padding:13px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.06); color:#fff; margin-bottom:14px; text-align:center; font-size:0.95rem;}
+  .gate-hint{margin-top:16px; font-size:0.74rem; color:#8794C4;}
+  .gate-back{display:inline-block; margin-top:18px; font-size:0.8rem; color:#B7C4EE; text-decoration:underline;}
+
+  .app-shell{display:grid; grid-template-columns:250px 1fr; min-height:100vh;}
+  @media(max-width:820px){.app-shell{grid-template-columns:1fr;}}
+  .app-sidebar{background:var(--blue-deep); border-right:1px solid rgba(255,255,255,0.1); padding:28px 22px; display:flex; flex-direction:column;}
+  .app-logo{font-family:var(--serif); color:#fff; font-weight:700; font-size:1.15rem; margin-bottom:36px; display:flex; align-items:center; gap:8px;}
+  .app-nav{list-style:none; display:grid; gap:3px;}
+  .app-nav li a{display:flex; align-items:center; gap:10px; padding:11px 13px; border-radius:8px; color:#B7C4EE; font-size:0.9rem; font-weight:600; text-decoration:none;}
+  .app-nav li a.active, .app-nav li a:hover{background:rgba(255,255,255,0.08); color:#fff;}
+  .app-sidebar-foot{margin-top:auto; font-size:0.76rem; color:#7382B5; padding-top:20px; border-top:1px solid rgba(255,255,255,0.1); line-height:1.5;}
+
+  .app-main{padding:36px 42px; overflow-x:auto;}
+  .app-topbar{display:flex; justify-content:space-between; align-items:center; margin-bottom:32px;}
+  .app-title{color:#fff; font-family:var(--serif); font-size:1.6rem;}
+  .app-title span{color:#8794C4; font-size:0.85rem; font-family:var(--sans); font-weight:500; display:block; margin-top:4px;}
+  .bell-wrap{position:relative; cursor:pointer;}
+  .bell{width:44px; height:44px; border-radius:10px; background:var(--blue-mid); border:1px solid rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center; font-size:1.2rem;}
+  .bell-badge{position:absolute; top:-6px; right:-6px; background:var(--amber); color:var(--blue-deep); font-size:0.68rem; font-weight:800; min-width:19px; height:19px; border-radius:10px; display:flex; align-items:center; justify-content:center; padding:0 4px;}
+
+  .kanban-scroll{overflow-x:auto; padding-bottom:8px;}
+  .kanban{display:grid; grid-template-columns:repeat(5,minmax(230px,1fr)); gap:18px; min-width:1180px;}
+  @media(max-width:1180px){.kanban{min-width:1180px;}}
+  .kcol{background:var(--blue-mid); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:16px;}
+  .kcol-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding:0 4px;}
+  .kcol-head h4{color:#fff; font-size:0.88rem; font-weight:700;}
+  .kcol-count{background:var(--blue-deep); color:#8794C4; font-size:0.72rem; padding:3px 9px; border-radius:10px;}
+  .lead-card{background:var(--blue-deep); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:16px; margin-bottom:12px; cursor:pointer; transition:border-color .15s ease, transform .15s ease;}
+  .lead-card:hover{border-color:var(--amber); transform:translateY(-2px);}
+  .lead-card.unread{border-left:3px solid var(--amber);}
+  .lead-card .lc-score{display:inline-block; font-family:var(--mono); font-size:0.7rem; font-weight:700; padding:3px 9px; border-radius:10px; margin-bottom:10px;}
+  .lead-card .lc-name{color:#fff; font-weight:700; font-size:0.94rem; margin-bottom:3px; font-family:var(--serif);}
+  .lead-card .lc-meta{color:#8794C4; font-size:0.78rem; margin-bottom:10px;}
+  .lead-card .lc-answers{display:grid; gap:4px; margin-bottom:12px; font-size:0.76rem; color:#B7C4EE;}
+  .lead-card .lc-answers span b{color:#fff;}
+  .lc-actions{display:flex; gap:6px; flex-wrap:wrap;}
+  .lc-actions button{font-size:0.7rem; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,0.14); background:transparent; color:#8794C4; font-weight:600;}
+  .lc-actions button:hover{border-color:var(--amber); color:#fff;}
+  .kcol-empty{color:#5C6690; font-size:0.8rem; text-align:center; padding:34px 6px;}
+  .lc-tags{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px;}
+  .lc-tag{font-size:0.68rem; font-weight:700; padding:3px 8px; border-radius:8px; background:rgba(255,255,255,0.08); color:#B7C4EE;}
+  .lc-tag.warn{background:rgba(219,139,0,0.18); color:var(--amber);}
+  .lc-tag.danger{background:rgba(229,72,77,0.18); color:#FF7A5C;}
+
+  /* dashboard KPIs */
+  .kpi-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:16px; margin-bottom:32px;}
+  .kpi-card{background:var(--blue-mid); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:22px;}
+  .kpi-label{display:block; font-size:0.78rem; color:#8794C4; margin-bottom:10px; font-weight:600;}
+  .kpi-val{font-family:var(--serif); font-size:2.1rem; color:#fff; font-variant-numeric:tabular-nums;}
+  .kpi-val.hot{color:#FF7A5C;}
+  .kpi-val.amber{color:var(--amber);}
+  .dash-panel-chart{background:var(--blue-mid); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:26px;}
+  .dash-panel-chart h4{color:#fff; font-size:0.98rem; margin-bottom:20px; font-weight:600;}
+  .mini-chart{display:flex; align-items:flex-end; gap:20px; height:140px;}
+  .mc-col{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%;}
+  .mc-bar{width:100%; max-width:64px; background:linear-gradient(180deg,var(--blue-glow),var(--blue)); border-radius:8px 8px 0 0; transform:scaleY(0); transform-origin:bottom; transition:transform .8s cubic-bezier(.16,.8,.3,1);}
+  .mc-bar.in{transform:scaleY(1);}
+  .mc-num{color:#fff; font-size:0.85rem; font-weight:700; margin-bottom:6px;}
+  .mc-label{color:#8794C4; font-size:0.74rem; margin-top:10px;}
+
+  .crm-search{padding:10px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.06); color:#fff; font-size:0.86rem; width:220px;}
+  .crm-search::placeholder{color:#7382B5;}
+
+  /* analytics */
+  .conv-highlight{background:var(--blue-mid); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:26px; margin-bottom:20px; display:flex; align-items:center; gap:24px; flex-wrap:wrap;}
+  .conv-num{font-family:var(--serif); font-size:2.6rem; color:var(--amber); line-height:1;}
+  .conv-label{color:#8794C4; font-size:0.86rem; max-width:340px;}
+  .breakdown-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media(max-width:820px){.breakdown-grid{grid-template-columns:1fr;}}
+  .breakdown-card{background:var(--blue-mid); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:24px;}
+  .breakdown-card h4{color:#fff; font-size:0.92rem; margin-bottom:18px; font-weight:600;}
+  .bd-row{margin-bottom:14px;}
+  .bd-row:last-child{margin-bottom:0;}
+  .bd-row-top{display:flex; justify-content:space-between; font-size:0.78rem; color:#B7C4EE; margin-bottom:6px;}
+  .bd-row-top b{color:#fff;}
+  .bd-bar-track{height:7px; background:var(--blue-deep); border-radius:6px; overflow:hidden;}
+  .bd-bar-fill{height:100%; background:linear-gradient(90deg,var(--blue-glow),var(--blue)); border-radius:6px; transform:scaleX(0); transform-origin:left; transition:transform .8s cubic-bezier(.16,.8,.3,1);}
+  .bd-bar-fill.in{transform:scaleX(1);}
+
+  /* upgraded lead card */
+  .lead-card{position:relative; padding-left:18px;}
+  .lead-card::before{content:''; position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:12px 0 0 12px;}
+  .lead-card.prio-hot::before{background:#FF7A5C;}
+  .lead-card.prio-warm::before{background:var(--amber);}
+  .lead-card.prio-cold::before{background:#5B8CFF;}
+  .lc-top{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
+  .lc-avatar{width:34px; height:34px; border-radius:50%; background:var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; flex-shrink:0; font-family:var(--serif);}
+  .lc-time{margin-left:auto; font-size:0.7rem; color:#5C6690;}
+  .lead-card[draggable="true"]{cursor:grab;}
+  .lead-card.dragging{opacity:0.4;}
+  .kcol.drag-over{background:var(--blue-deep); outline:2px dashed var(--blue-glow);}
+
+  /* lead detail modal */
+  .lead-modal-overlay{position:fixed; inset:0; background:rgba(2,10,30,0.6); backdrop-filter:blur(3px); z-index:300; display:none; align-items:center; justify-content:center; padding:20px;}
+  .lead-modal-overlay.open{display:flex;}
+  .lead-modal{background:var(--blue-mid); border:1px solid rgba(255,255,255,0.12); border-radius:18px; padding:34px; max-width:480px; width:100%; max-height:86vh; overflow-y:auto; position:relative;}
+  .lm-close{position:absolute; top:18px; right:18px; background:rgba(255,255,255,0.08); border:none; color:#fff; width:32px; height:32px; border-radius:50%; font-size:0.9rem;}
+  .lm-head{display:flex; align-items:center; gap:14px; margin-bottom:20px;}
+  .lm-avatar{width:52px; height:52px; border-radius:50%; background:var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:1.2rem; font-weight:700;}
+  .lm-name{color:#fff; font-family:var(--serif); font-size:1.25rem;}
+  .lm-meta{color:#8794C4; font-size:0.82rem;}
+  .lm-section{margin-bottom:18px;}
+  .lm-section h5{color:#8794C4; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:10px;}
+  .lm-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .lm-item{background:var(--blue-deep); border-radius:8px; padding:10px 12px;}
+  .lm-item span{display:block; font-size:0.7rem; color:#7382B5; margin-bottom:3px;}
+  .lm-item b{color:#fff; font-size:0.88rem;}
+  .lm-stages{display:flex; gap:6px; flex-wrap:wrap;}
+  .lm-stages button{flex:1; padding:9px 6px; border-radius:8px; border:1px solid rgba(255,255,255,0.14); background:transparent; color:#B7C4EE; font-size:0.76rem; font-weight:600;}
+  .lm-stages button.active{background:var(--blue); border-color:var(--blue); color:#fff;}
+  .lm-notes textarea{width:100%; min-height:80px; background:var(--blue-deep); border:1px solid rgba(255,255,255,0.14); border-radius:8px; color:#fff; padding:12px; font-family:var(--sans); font-size:0.86rem; resize:vertical;}
+  .lm-notes textarea::placeholder{color:#5C6690;}
+  .lm-timeline{display:flex; flex-direction:column; gap:9px; max-height:170px; overflow-y:auto; padding-right:4px;}
+  .lm-tl-item{display:flex; gap:10px; font-size:0.78rem; color:#B7C4EE; line-height:1.4;}
+  .lm-tl-time{color:#5C6690; flex-shrink:0; min-width:56px; font-size:0.7rem; padding-top:1px;}
+</style>
+</head>
+<body>
+
+<div class="read-bar" id="readBar"></div>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo"><span class="dot"></span>Plena · Gestão Condominial</div>
+    <ul class="navlinks">
+      <li><a href="#servicos360">Serviços</a></li>
+      <li><a href="#metodo">Método</a></li>
+      <li><a href="#diagnostico">Diagnóstico</a></li>
+      <li><a href="#cases">Resultados</a></li>
+      <li><a href="#faq">Dúvidas</a></li>
+    </ul>
+    <div class="navcta">
+      <a href="#diagnostico" class="btn btn-ghost-dark btn-sm ghost-desktop">Fazer diagnóstico</a>
+      <a href="#" onclick="showView('app'); return false;" class="btn btn-sm" style="background:var(--blue-deep); color:#fff;" title="Área restrita da equipe">🔒 Painel</a>
+    </div>
+  </div>
+</header>
+
+<div id="siteView">
+
+<section class="hero">
+  <div class="hero-photo-wrap"><img src="https://picsum.photos/seed/plenabuilding/1600/900" alt="" loading="lazy"></div>
+  <div class="hero-blob blob1" id="blob1"></div>
+  <div class="hero-blob blob2" id="blob2"></div>
+  <div class="hero-blob blob3" id="blob3"></div>
+  <div class="wrap hero-inner">
+    <div class="reveal">
+      <span class="eyebrow-tag"><span class="pulse"></span>Gestão Condominial 360º</span>
+      <h1>Seu condomínio no <span class="hl">azul.</span><br>Gestão profissional, do zero ao contrato.</h1>
+      <p class="lede" style="margin-top:22px;">Assumimos a gestão financeira, administrativa, jurídica e operacional do seu condomínio com método próprio, prestação de contas transparente e plano estruturado desde o primeiro dia.</p>
+      <div class="hero-ctas">
+        <a href="#diagnostico" class="btn btn-primary">Fazer diagnóstico gratuito</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b class="counter" data-target="10">0</b><span>anos de experiência da equipe</span></div>
+        <div class="stat"><b>5</b><span>frentes de gestão especializada</span></div>
+        <div class="stat"><b>90 dias</b><span>plano de transição</span></div>
+      </div>
+    </div>
+    <div class="hero-panel reveal">
+      <span class="tag">DIAGNÓSTICO CONDOMINIAL — PRÉVIA</span>
+      <div class="hp-row"><span>Financeiro</span><div style="display:flex;align-items:center;gap:10px;"><div class="hp-bar-track"><div class="hp-bar-fill" style="width:72%;"></div></div><b>72</b></div></div>
+      <div class="hp-row"><span>Operacional</span><div style="display:flex;align-items:center;gap:10px;"><div class="hp-bar-track"><div class="hp-bar-fill" style="width:48%;"></div></div><b>48</b></div></div>
+      <div class="hp-row"><span>Governança</span><div style="display:flex;align-items:center;gap:10px;"><div class="hp-bar-track"><div class="hp-bar-fill" style="width:81%;"></div></div><b>81</b></div></div>
+      <div class="hp-row"><span>Transparência</span><div style="display:flex;align-items:center;gap:10px;"><div class="hp-bar-track"><div class="hp-bar-fill" style="width:65%;"></div></div><b>65</b></div></div>
+      <div class="hp-score">66<span style="font-size:1.1rem; color:#B7C4EE;"> / 100</span></div>
+      <span style="font-size:0.82rem; color:#B7C4EE;">Índice de Saúde Condominial — exemplo</span>
+    </div>
+  </div>
+</section>
+
+<section class="marquee-sec">
+  <div class="marquee-label">SEGMENTOS EM QUE ATUAMOS</div>
+  <div class="marquee-track">
+    <span>Residencial Vertical</span><span>Residencial Horizontal</span><span>Condomínio Clube</span><span>Comercial</span><span>Misto</span><span>Implantação de Condomínio Novo</span>
+    <span>Residencial Vertical</span><span>Residencial Horizontal</span><span>Condomínio Clube</span><span>Comercial</span><span>Misto</span><span>Implantação de Condomínio Novo</span>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow-tag"><span class="pulse"></span>A diferença na prática</span>
+      <h2>Antes e depois de uma gestão estruturada</h2>
+      <p class="lede" style="margin:14px auto 0;">Arraste a linha para comparar como fica a rotina do condomínio.</p>
+    </div>
+    <div class="compare-wrap reveal">
+      <div class="compare-slider" id="compareSlider">
+        <div class="compare-side compare-before">
+          <span class="compare-label">GESTÃO SEM MÉTODO</span>
+          <h4>Reativa e informal</h4>
+          <ul>
+            <li>Prestação de contas só na assembleia anual</li>
+            <li>Manutenção feita quando já virou urgência</li>
+            <li>Contratos sem revisão há anos</li>
+            <li>Cobrança de inadimplência informal</li>
+            <li>Síndico sobrecarregado, sem retaguarda técnica</li>
+          </ul>
+        </div>
+        <div class="compare-side compare-after" id="compareAfter">
+          <span class="compare-label">GESTÃO PLENA</span>
+          <h4>Estruturada e transparente</h4>
+          <ul>
+            <li>Relatórios acessíveis a qualquer momento</li>
+            <li>Plano de manutenção preventiva ativo</li>
+            <li>Contratos revisados e cotados periodicamente</li>
+            <li>Régua de cobrança estruturada</li>
+            <li>Equipe multidisciplinar dando suporte ao síndico</li>
+          </ul>
+        </div>
+        <div class="compare-handle" id="compareHandle">
+          <div class="compare-handle-line"></div>
+          <div class="compare-handle-grip">⇔</div>
+        </div>
+      </div>
+      <div class="compare-caption">ARRASTE PARA COMPARAR</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow-tag"><span class="pulse"></span>Pontos de atenção comuns</span>
+      <h2>O que normalmente leva um condomínio a trocar de gestão</h2>
+    </div>
+    <div class="problem-grid reveal-stagger reveal">
+      <div class="problem-card"><span class="pnum">01</span><h3>Falta de prestação de contas clara</h3><p>Moradores não conseguem acompanhar entradas, saídas e saldo com facilidade.</p></div>
+      <div class="problem-card"><span class="pnum">02</span><h3>Manutenção reativa</h3><p>Problemas só são resolvidos quando já viraram urgência, encarecendo reparos.</p></div>
+      <div class="problem-card"><span class="pnum">03</span><h3>Contratos sem revisão</h3><p>Fornecedores contratados há anos sem nova cotação, pagando acima do mercado.</p></div>
+      <div class="problem-card"><span class="pnum">04</span><h3>Síndico morador sobrecarregado</h3><p>Sem tempo, sem retaguarda técnica e sem respaldo jurídico.</p></div>
+      <div class="problem-card"><span class="pnum">05</span><h3>Inadimplência sem plano</h3><p>Cobrança informal, sem processo estruturado nem régua de cobrança.</p></div>
+      <div class="problem-card"><span class="pnum">06</span><h3>Assembleias desgastantes</h3><p>Falta de dados objetivos leva a decisões emocionais e discussões longas.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="servicos360">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow-tag"><span class="pulse"></span>Um mapa para o sucesso na gestão condominial</span>
+      <h2>Gestão Condominial 360º</h2>
+      <p class="lede" style="margin:14px auto 0;">Atuamos de forma global, com profissionais capacitados em Gestão, Finanças, Jurídico, Engenharia e Inovação, para manter o ecossistema do seu condomínio saudável.</p>
+    </div>
+    <div class="svc360-grid reveal-stagger reveal">
+      <div class="svc360-card"><div class="svc360-icon">A</div><h4>Administrativo</h4><p>Rotina, documentos e atendimento</p></div>
+      <div class="svc360-card"><div class="svc360-icon">F</div><h4>Financeiro</h4><p>Contas, cobrança e orçamento</p></div>
+      <div class="svc360-card"><div class="svc360-icon">R</div><h4>Resultados</h4><p>Indicadores de gestão</p></div>
+      <div class="svc360-card"><div class="svc360-icon">J</div><h4>Jurídico</h4><p>Suporte legal e contratual</p></div>
+      <div class="svc360-card"><div class="svc360-icon">Z</div><h4>Zeladoria e Manutenção</h4><p>Preventiva e corretiva</p></div>
+      <div class="svc360-card"><div class="svc360-icon">P</div><h4>Research</h4><p>Cotação e benchmarking</p></div>
+      <div class="svc360-card"><div class="svc360-icon">I</div><h4>Inovação</h4><p>Tecnologia aplicada à gestão</p></div>
+      <div class="svc360-card"><div class="svc360-icon">T</div><h4>Transparência</h4><p>Prestação de contas acessível</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="feature-row reveal">
+      <div class="f-visual"><span class="big-num">R$</span></div>
+      <div class="f-text">
+        <span class="f-eyebrow">SEU CONDOMÍNIO NO AZUL</span>
+        <h3>Gestão Financeira</h3>
+        <p>A gestão orçamentário-financeira é de extrema importância — e o síndico profissional tem papel fundamental nela. Conte com profissionais dedicados a manter as contas do seu condomínio saudáveis.</p>
+        <ul class="f-list">
+          <li>Contas a pagar e a receber organizadas</li>
+          <li>Régua de cobrança para inadimplência</li>
+          <li>Fundo de reserva planejado</li>
+        </ul>
+      </div>
+    </div>
+    <div class="feature-row rev reveal">
+      <div class="f-visual"><span class="big-num">⚙</span></div>
+      <div class="f-text">
+        <span class="f-eyebrow">SEU CONDOMÍNIO FUNCIONANDO 100%</span>
+        <h3>Zeladoria e Manutenção</h3>
+        <p>Administramos e organizamos todos os processos da rotina do condomínio, atendendo às demandas dos condôminos, protegendo o patrimônio e zelando pela segurança das pessoas.</p>
+        <ul class="f-list">
+          <li>Plano de manutenção preventiva</li>
+          <li>Gestão de fornecedores e prestadores</li>
+          <li>Padrão de qualidade monitorado</li>
+        </ul>
+      </div>
+    </div>
+    <div class="feature-row reveal">
+      <div class="f-visual"><span class="big-num">◎</span></div>
+      <div class="f-text">
+        <span class="f-eyebrow">TRANSPARÊNCIA</span>
+        <h3>Gestão de Documentos e Informações</h3>
+        <p>A transparência na gestão condominial é essencial. Nossa equipe tem papel fundamental na organização e disponibilização de documentos e informações a qualquer momento.</p>
+        <ul class="f-list">
+          <li>Relatórios acessíveis a qualquer momento</li>
+          <li>Documentação organizada e centralizada</li>
+          <li>Comunicação clara com moradores</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow-tag"><span class="pulse"></span>Transparência na prática</span>
+      <h2>Veja como funciona a prestação de contas</h2>
+      <p class="lede" style="margin:14px auto 0;">Um exemplo simplificado do que fica disponível para os moradores a qualquer momento — não apenas na assembleia.</p>
+    </div>
+    <div class="dash-mock reveal">
+      <div class="dash-topbar"><span class="dash-dot"></span><span class="dash-dot"></span><span class="dash-dot"></span><span class="dash-title">painel.plenagestao.com.br/residencial-alameda</span></div>
+      <div class="dash-body">
+        <div>
+          <div class="dash-chart" id="dashChart">
+            <div class="dash-bar" style="height:62%;"></div>
+            <div class="dash-bar" style="height:74%;"></div>
+            <div class="dash-bar" style="height:58%;"></div>
+            <div class="dash-bar" style="height:80%;"></div>
+            <div class="dash-bar" style="height:69%;"></div>
+            <div class="dash-bar" style="height:85%;"></div>
+          </div>
+          <div class="dash-chart-label"><span>Fev</span><span>Mar</span><span>Abr</span><span>Mai</span><span>Jun</span><span>Jul</span></div>
+        </div>
+        <div class="dash-cards">
+          <div class="dash-card"><div class="dc-label">Saldo em caixa</div><div class="dc-val ok">R$ 84.320</div></div>
+          <div class="dash-card"><div class="dc-label">Inadimplência</div><div class="dc-val">3,2%</div></div>
+          <div class="dash-card"><div class="dc-label">Manutenções em dia</div><div class="dc-val ok">94%</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow-tag"><span class="pulse"></span>O caminho até a gestão</span>
+      <h2>Do diagnóstico ao contrato, sem ruído</h2>
+      <p class="lede" style="margin:14px auto 0;">Um processo claro, sem depender de "achismo" ou de várias ligações pra descobrir o próximo passo.</p>
+    </div>
+    <div class="funnel-track reveal" id="funnelTrack">
+      <div class="funnel-line"><div class="funnel-line-fill" id="funnelFill"></div></div>
+      <div class="funnel-step"><div class="fs-dot">1</div><h4>Diagnóstico</h4><p>Responda o quiz gratuito em 3 minutos</p></div>
+      <div class="funnel-step"><div class="fs-dot">2</div><h4>Retorno da equipe</h4><p>Contato em até 24h após o diagnóstico</p></div>
+      <div class="funnel-step"><div class="fs-dot">3</div><h4>Reunião</h4><p>Levantamento completo do condomínio</p></div>
+      <div class="funnel-step"><div class="fs-dot">4</div><h4>Proposta</h4><p>Material pronto para o conselho</p></div>
+      <div class="funnel-step"><div class="fs-dot">5</div><h4>Contrato</h4><p>Início do plano dos 90 dias</p></div>
+    </div>
+    <div style="text-align:center; margin-top:44px;">
+      <a href="#diagnostico" class="btn btn-primary">Começar pelo diagnóstico</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt" id="diagnostico">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow-tag"><span class="pulse"></span>Ferramenta gratuita</span>
+      <h2>Descubra o Índice de Saúde do seu condomínio</h2>
+      <p class="lede" style="margin:14px auto 0;">Responda 6 perguntas rápidas (cerca de 3 minutos) e receba um diagnóstico personalizado.</p>
+    </div>
+
+    <div class="quiz-shell reveal">
+      <div class="quiz-top">
+        <div class="quiz-meta"><span id="stepLabel">PERGUNTA 1 DE 7</span><span id="stepPct">14%</span></div>
+        <div class="quiz-progress-track"><div class="quiz-progress-bar" id="progBar"></div></div>
+      </div>
+      <div class="quiz-body">
+
+        <div class="q-step active" data-step="1">
+          <h3 class="q-title">Quantas unidades tem o condomínio?</h3>
+          <div class="opt-grid" data-group="unidades">
+            <div class="opt" data-value="1"><span class="dot"></span>Até 30 unidades</div>
+            <div class="opt" data-value="2"><span class="dot"></span>31 a 60 unidades</div>
+            <div class="opt" data-value="3"><span class="dot"></span>61 a 100 unidades</div>
+            <div class="opt" data-value="4"><span class="dot"></span>Mais de 100 unidades</div>
+          </div>
+          <div class="q-nav"><button class="q-back" disabled onclick="prevStep()">Voltar</button></div>
+        </div>
+
+        <div class="q-step" data-step="2">
+          <h3 class="q-title">Quem administra o condomínio hoje?</h3>
+          <div class="opt-grid" data-group="gestao">
+            <div class="opt" data-value="morador"><span class="dot"></span>Síndico morador</div>
+            <div class="opt" data-value="profissional"><span class="dot"></span>Síndico profissional</div>
+            <div class="opt" data-value="administradora"><span class="dot"></span>Administradora terceirizada</div>
+          </div>
+          <div class="q-nav"><button class="q-back" onclick="prevStep()">Voltar</button></div>
+        </div>
+
+        <div class="q-step" data-step="3">
+          <h3 class="q-title">Como está a situação financeira hoje?</h3>
+          <div class="opt-grid" data-group="financeiro">
+            <div class="opt" data-value="4"><span class="dot"></span>Organizada, com fundo de reserva</div>
+            <div class="opt" data-value="3"><span class="dot"></span>Equilibrada, sem grandes reservas</div>
+            <div class="opt" data-value="2"><span class="dot"></span>Inadimplência relevante</div>
+            <div class="opt" data-value="1"><span class="dot"></span>Situação preocupante</div>
+          </div>
+          <div class="q-nav"><button class="q-back" onclick="prevStep()">Voltar</button></div>
+        </div>
+
+        <div class="q-step" data-step="4">
+          <h3 class="q-title">Existem manutenções atrasadas ou plano preventivo?</h3>
+          <div class="opt-grid" data-group="operacional">
+            <div class="opt" data-value="4"><span class="dot"></span>Plano preventivo ativo, tudo em dia</div>
+            <div class="opt" data-value="3"><span class="dot"></span>Em dia, mas sem plano formal</div>
+            <div class="opt" data-value="2"><span class="dot"></span>Algumas pendências</div>
+            <div class="opt" data-value="1"><span class="dot"></span>Diversas manutenções atrasadas</div>
+          </div>
+          <div class="q-nav"><button class="q-back" onclick="prevStep()">Voltar</button></div>
+        </div>
+
+        <div class="q-step" data-step="5">
+          <h3 class="q-title">Como você avalia a prestação de contas atual?</h3>
+          <div class="opt-grid" data-group="transparencia">
+            <div class="opt" data-value="4"><span class="dot"></span>Clara e acessível a qualquer momento</div>
+            <div class="opt" data-value="3"><span class="dot"></span>Existe, mas pouco detalhada</div>
+            <div class="opt" data-value="2"><span class="dot"></span>Só disponível em assembleia</div>
+            <div class="opt" data-value="1"><span class="dot"></span>Pouco clara ou questionada</div>
+          </div>
+          <div class="q-nav"><button class="q-back" onclick="prevStep()">Voltar</button></div>
+        </div>
+
+        <div class="q-step" data-step="6">
+          <h3 class="q-title">Existe intenção de avaliar a gestão atual?</h3>
+          <div class="opt-grid" data-group="intencao">
+            <div class="opt" data-value="3"><span class="dot"></span>Sim, queremos trocar</div>
+            <div class="opt" data-value="2"><span class="dot"></span>Estamos avaliando</div>
+            <div class="opt" data-value="1"><span class="dot"></span>Só pesquisando, sem urgência</div>
+          </div>
+          <div class="q-nav"><button class="q-back" onclick="prevStep()">Voltar</button></div>
+        </div>
+
+        <div class="q-step" data-step="7">
+          <h3 class="q-title">Quase lá — para onde enviamos o resultado?</h3>
+          <label class="f-label">Nome</label>
+          <input type="text" id="leadName" placeholder="Seu nome">
+          <label class="f-label">WhatsApp</label>
+          <input type="tel" id="leadPhone" placeholder="(11) 90000-0000">
+          <label class="f-label">Nome do condomínio</label>
+          <input type="text" id="leadCondo" placeholder="Ex: Residencial Alameda">
+          <div class="q-nav">
+            <button class="q-back" onclick="prevStep()">Voltar</button>
+            <button class="btn btn-primary" onclick="showResult()">Ver meu diagnóstico</button>
+          </div>
+        </div>
+
+        <div class="q-step" data-step="8">
+          <div class="result-head">
+            <span style="font-family:var(--mono); font-size:0.75rem; color:var(--ink-soft);">ÍNDICE DE SAÚDE CONDOMINIAL</span>
+            <div class="result-score" id="resultScore">—</div>
+            <span class="result-tag" id="resultTag">—</span>
+          </div>
+          <div class="breakdown" id="breakdown"></div>
+          <p style="text-align:center; margin:0 auto 22px; font-size:0.94rem; color:var(--ink-soft);" id="resultMsg"></p>
+          <div class="confirm-box">
+            <div class="confirm-icon">✓</div>
+            <h4>Recebemos o seu diagnóstico</h4>
+            <p>Nossa equipe vai analisar as respostas e entrar em contato com você em até 24 horas.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt" id="metodo">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow-tag"><span class="pulse"></span>Como trabalhamos</span>
+      <h2>Método Plena · 5 pilares de gestão</h2>
+      <p class="lede">Não administramos apenas problemas pontuais. Aplicamos uma estrutura repetível em todos os condomínios que assumimos.</p>
+    </div>
+    <div class="method-grid reveal-stagger reveal">
+      <div class="method-card"><span class="mnum">P1</span><h4>Planejamento</h4><p>Orçamento anual e cronograma de manutenções definidos com o conselho.</p></div>
+      <div class="method-card"><span class="mnum">P2</span><h4>Patrimônio</h4><p>Manutenção preventiva e valorização da estrutura física ao longo do tempo.</p></div>
+      <div class="method-card"><span class="mnum">P3</span><h4>Pessoas</h4><p>Gestão de funcionários, fornecedores e relacionamento com moradores.</p></div>
+      <div class="method-card"><span class="mnum">P4</span><h4>Processos</h4><p>Rotinas documentadas para compras, contratos e manutenção.</p></div>
+      <div class="method-card"><span class="mnum">P5</span><h4>Prestação de contas</h4><p>Relatórios financeiros claros e acessíveis a qualquer momento.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-dark">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow-tag" style="background:rgba(255,255,255,0.12); color:var(--amber);"><span class="pulse" style="background:var(--amber);"></span>Plano de transição</span>
+      <h2>O que acontece nos primeiros 90 dias</h2>
+      <p class="lede">Assim que somos eleitos, seguimos um plano estruturado — nada fica ao acaso na transição.</p>
+    </div>
+    <div class="timeline reveal-stagger reveal">
+      <div class="tl-card"><span class="tl-days">DIAS 1–15</span><ul><li>Diagnóstico completo</li><li>Levantamento de documentos</li><li>Revisão de contratos ativos</li><li>Situação financeira</li></ul></div>
+      <div class="tl-card"><span class="tl-days">DIAS 16–30</span><ul><li>Priorização de pendências</li><li>Comunicação aos moradores</li><li>Organização de processos</li></ul></div>
+      <div class="tl-card"><span class="tl-days">DIAS 31–60</span><ul><li>Renegociação de contratos</li><li>Plano de manutenção preventiva</li><li>Indicadores implantados</li></ul></div>
+      <div class="tl-card"><span class="tl-days">DIAS 61–90</span><ul><li>Plano estratégico anual</li><li>Orçamento formalizado</li><li>Relatório ao conselho</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt" id="cases">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow-tag"><span class="pulse"></span>Resultados</span>
+      <h2>Casos reais de gestão</h2>
+      <p class="lede">Substitua pelos dados reais de condomínios atendidos — mantenha apenas números que você pode comprovar.</p>
+    </div>
+    <div class="case-grid reveal-stagger reveal">
+      <div class="case-card">
+        <div class="case-photo"><img src="https://picsum.photos/seed/plenacase1/600/400" alt="" loading="lazy"></div>
+        <span class="case-tag">CASE — [NOME DO CONDOMÍNIO]</span>
+        <h3>[XX] unidades · [X] torres · [XX] anos de construído</h3>
+        <div class="case-block"><b>Cenário</b><span>[Situação encontrada: ex. manutenções atrasadas, contratos desatualizados]</span></div>
+        <div class="case-block"><b>Primeiros 90 dias</b><span>[Ex: X contratos renegociados, cronograma preventivo criado]</span></div>
+        <div class="case-block"><b>Resultado</b><span>[Ex: redução de X% em custos de manutenção em 6 meses]</span></div>
+      </div>
+      <div class="case-card">
+        <div class="case-photo"><img src="https://picsum.photos/seed/plenacase2/600/400" alt="" loading="lazy"></div>
+        <span class="case-tag">CASE — [NOME DO CONDOMÍNIO]</span>
+        <h3>[XX] unidades · [X] torres · [XX] anos de construído</h3>
+        <div class="case-block"><b>Cenário</b><span>[Situação encontrada]</span></div>
+        <div class="case-block"><b>Primeiros 90 dias</b><span>[O que foi feito]</span></div>
+        <div class="case-block"><b>Resultado</b><span>[Resultado mensurável]</span></div>
+      </div>
+    </div>
+
+    <div class="magnet-box reveal" style="margin-top:60px;">
+      <div class="magnet-icon">PDF</div>
+      <div>
+        <h3>Checklist do Conselho — grátis</h3>
+        <p>15 perguntas para avaliar antes de trocar (ou contratar) a gestão do seu condomínio.</p>
+      </div>
+      <a href="checklist-conselho.pdf" download class="btn btn-primary btn-sm">Baixar checklist</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow-tag"><span class="pulse"></span>Quem cuida do seu condomínio</span>
+      <h2>Equipe multidisciplinar</h2>
+    </div>
+    <div class="team-grid reveal-stagger reveal">
+      <div class="team-card"><div class="avatar-photo"><img src="https://i.pravatar.cc/300?img=12" alt="" loading="lazy"></div><h4>[Nome]</h4><span>Administração</span></div>
+      <div class="team-card"><div class="avatar-photo"><img src="https://i.pravatar.cc/300?img=47" alt="" loading="lazy"></div><h4>[Nome]</h4><span>Finanças</span></div>
+      <div class="team-card"><div class="avatar-photo"><img src="https://i.pravatar.cc/300?img=33" alt="" loading="lazy"></div><h4>[Nome]</h4><span>Direito Condominial</span></div>
+      <div class="team-card"><div class="avatar-photo"><img src="https://i.pravatar.cc/300?img=68" alt="" loading="lazy"></div><h4>[Nome]</h4><span>Engenharia / Manutenção</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow-tag"><span class="pulse"></span>O que dizem</span>
+      <h2>Avaliações de síndicos e conselheiros</h2>
+    </div>
+    <div class="test-grid reveal-stagger reveal">
+      <div class="test-card"><div class="stars">★★★★★</div><p>"[Depoimento real do cliente sobre transparência ou organização financeira]"</p><div class="test-who">[Nome] — Conselheiro, [Condomínio]</div></div>
+      <div class="test-card"><div class="stars">★★★★★</div><p>"[Depoimento real sobre a transição de gestão]"</p><div class="test-who">[Nome] — Morador, [Condomínio]</div></div>
+      <div class="test-card"><div class="stars">★★★★★</div><p>"[Depoimento real sobre manutenção ou atendimento]"</p><div class="test-who">[Nome] — Síndico anterior, [Condomínio]</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="faq">
+  <div class="wrap" style="max-width:780px;">
+    <div class="sec-head reveal">
+      <span class="eyebrow-tag"><span class="pulse"></span>Perguntas frequentes</span>
+      <h2>Antes da próxima assembleia</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Como funciona a transição do síndico atual para vocês?</span><span class="plus">+</span></div><div class="faq-a"><p>O processo começa com um diagnóstico completo, seguido de um plano de transição de 90 dias que cobre documentação, contratos, financeiro e comunicação com os moradores.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Preciso levar a proposta para a assembleia?</span><span class="plus">+</span></div><div class="faq-a"><p>Sim. Preparamos um material completo para apresentação ao conselho e à assembleia, com escopo, plano de trabalho e investimento.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Atendem condomínios em implantação (recém-entregues)?</span><span class="plus">+</span></div><div class="faq-a"><p>Sim, temos um processo específico para recebimento da construtora, documentação inicial e organização de fornecedores e funcionários.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Como é feita a prestação de contas?</span><span class="plus">+</span></div><div class="faq-a"><p>Relatórios financeiros ficam acessíveis aos moradores a qualquer momento, não apenas durante a assembleia anual.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta sec-dark">
+  <div class="wrap">
+    <span class="eyebrow-tag" style="background:rgba(255,255,255,0.12); color:var(--amber);"><span class="pulse" style="background:var(--amber);"></span>Próximo passo</span>
+    <h2>Quer melhorar a gestão do seu condomínio?</h2>
+    <p class="lede">Contate-nos e venha conhecer um novo modelo de gestão condominial.</p>
+    <div class="final-ctas">
+      <a href="#diagnostico" class="btn btn-amber">Fazer diagnóstico gratuito</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo"><span class="dot" style="width:8px;height:8px;border-radius:50%;background:var(--amber);"></span>Plena · Gestão Condominial</div>
+        <p style="max-width:280px; font-size:0.85rem;">Gestão condominial 360º — financeira, operacional, jurídica e administrativa.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col"><h5>Empresa</h5><a href="#metodo">Método</a><a href="#servicos360">Serviços</a><a href="#cases">Resultados</a></div>
+        <div class="foot-col"><h5>Contato</h5><a href="tel:+5511999999999">(11) 99999-9999</a><a href="mailto:contato@plenagestao.com.br">contato@plenagestao.com.br</a><a href="#">São Paulo — SP</a></div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Plena Gestão Condominial. Todos os direitos reservados.</span>
+      <span>CNPJ [00.000.000/0000-00]</span>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /siteView -->
+
+<!-- ===================== PAINEL CRM (aba interna, só a equipe acessa) ===================== -->
+<div id="appView" style="display:none;">
+  <div id="gate" class="gate">
+    <div class="gate-box">
+      <div class="gi">🔒</div>
+      <h3>Painel Plena</h3>
+      <p>Área restrita da equipe — só quem tem a senha acessa.</p>
+      <input type="password" id="gatePass" placeholder="Senha" onkeydown="if(event.key==='Enter') checkPass();">
+      <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="checkPass()">Entrar</button>
+      <div class="gate-hint">Senha de demonstração: <b>1234</b></div>
+      <a href="#" onclick="showView('site'); return false;" class="gate-back">← Voltar ao site</a>
+    </div>
+  </div>
+
+  <div class="app-shell">
+    <aside class="app-sidebar">
+      <div class="app-logo"><span class="dot"></span>Plena · Painel</div>
+      <ul class="app-nav">
+        <li><a href="#" id="navDash" class="active" onclick="showPanel('dash'); return false;">📊 Dashboard</a></li>
+        <li><a href="#" id="navLeads" onclick="showPanel('leads'); return false;">📋 Leads</a></li>
+        <li><a href="#" id="navAnalytics" onclick="showPanel('analytics'); return false;">📈 Análises</a></li>
+        <li><a href="#" onclick="showView('site'); return false;">🌐 Voltar ao site</a></li>
+      </ul>
+      <div class="app-sidebar-foot">Cada lead chega aqui automaticamente assim que alguém termina o diagnóstico no site — já com as respostas preenchidas.</div>
+    </aside>
+
+    <main class="app-main">
+      <div class="app-topbar">
+        <div class="app-title" id="panelTitle">Dashboard<span id="panelSubtitle">Visão geral dos leads recebidos pelo site</span></div>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <input type="text" id="searchLeads" placeholder="Buscar por nome ou condomínio…" class="crm-search" oninput="renderCRM()" style="display:none;">
+          <div class="bell-wrap" onclick="markAllRead()">
+            <div class="bell">🔔</div>
+            <div class="bell-badge" id="bellBadge" style="display:none;">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DASHBOARD -->
+      <div id="panelDash">
+        <div class="kpi-grid">
+          <div class="kpi-card"><span class="kpi-label">Total de leads</span><span class="kpi-val" id="kpiTotal">0</span></div>
+          <div class="kpi-card"><span class="kpi-label">🔥 Leads quentes</span><span class="kpi-val hot" id="kpiHot">0</span></div>
+          <div class="kpi-card"><span class="kpi-label">Score médio</span><span class="kpi-val" id="kpiScore">0</span></div>
+          <div class="kpi-card"><span class="kpi-label">Não lidos</span><span class="kpi-val amber" id="kpiUnread">0</span></div>
+          <div class="kpi-card"><span class="kpi-label">Valor em pipeline</span><span class="kpi-val" id="kpiPipeline">R$ 0</span></div>
+          <div class="kpi-card"><span class="kpi-label">⏰ Retornos atrasados</span><span class="kpi-val amber" id="kpiOverdue">0</span></div>
+        </div>
+        <div class="dash-panel-chart">
+          <h4>Leads por etapa do funil</h4>
+          <div class="mini-chart" id="miniChart"></div>
+        </div>
+      </div>
+
+      <!-- KANBAN -->
+      <div id="panelLeads" style="display:none;">
+        <div class="kanban-scroll"><div class="kanban" id="kanban"></div></div>
+      </div>
+
+      <!-- ANALYTICS -->
+      <div id="panelAnalytics" style="display:none;">
+        <div class="kpi-grid" style="margin-bottom:18px;">
+          <div class="kpi-card"><span class="kpi-label">Taxa de conversão</span><span class="kpi-val" id="convRate">0%</span></div>
+          <div class="kpi-card"><span class="kpi-label">Receita fechada (mensal)</span><span class="kpi-val" id="kpiClosedValue">R$ 0</span></div>
+          <div class="kpi-card"><span class="kpi-label">Ticket médio estimado</span><span class="kpi-val" id="kpiAvgTicket">R$ 0</span></div>
+          <div class="kpi-card"><span class="kpi-label">Taxa de perda</span><span class="kpi-val amber" id="lostRate">0%</span></div>
+        </div>
+        <div style="margin-bottom:18px;">
+          <button class="btn btn-sm" style="background:var(--blue-deep); color:#fff;" onclick="exportLeadsCSV()">⬇ Exportar leads (CSV)</button>
+        </div>
+        <div class="breakdown-grid">
+          <div class="breakdown-card">
+            <h4>Gestão atual do condomínio</h4>
+            <div id="bdGestao"></div>
+          </div>
+          <div class="breakdown-card">
+            <h4>Intenção declarada no diagnóstico</h4>
+            <div id="bdIntencao"></div>
+          </div>
+          <div class="breakdown-card">
+            <h4>Porte (nº de unidades)</h4>
+            <div id="bdUnidades"></div>
+          </div>
+          <div class="breakdown-card">
+            <h4>Prioridade dos leads</h4>
+            <div id="bdPrioridade"></div>
+          </div>
+          <div class="breakdown-card" id="cardMotivoPerda" style="display:none;">
+            <h4>Motivos de perda</h4>
+            <div id="bdMotivoPerda"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- LEAD DETAIL MODAL -->
+<div id="leadModal" class="lead-modal-overlay" onclick="if(event.target===this) closeLeadModal()">
+  <div class="lead-modal">
+    <button class="lm-close" onclick="closeLeadModal()">✕</button>
+    <div id="lmBody"></div>
+  </div>
+</div>
+
+
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<script>
+  // 3D tilt on cards
+  function addTilt(selector, max, scale){
+    document.querySelectorAll(selector).forEach(el=>{
+      el.addEventListener('mousemove', (e)=>{
+        const r = el.getBoundingClientRect();
+        const x = (e.clientX - r.left)/r.width - 0.5;
+        const y = (e.clientY - r.top)/r.height - 0.5;
+        el.style.transform = `perspective(900px) rotateY(${x*max}deg) rotateX(${-y*max}deg) scale(${scale})`;
+      });
+      el.addEventListener('mouseleave', ()=>{ el.style.transform=''; });
+    });
+  }
+  if(window.matchMedia('(pointer:fine)').matches){
+    addTilt('.svc360-card', 14, 1.05);
+    addTilt('.case-card', 6, 1.02);
+    addTilt('.method-card', 9, 1.03);
+    addTilt('.test-card', 6, 1.02);
+    addTilt('.hero-panel', 6, 1.0);
+    addTilt('.dash-mock', 4, 1.0);
+  }
+
+  // hero blob parallax
+  const heroSec = document.querySelector('.hero');
+  const blobs = [document.getElementById('blob1'), document.getElementById('blob2'), document.getElementById('blob3')];
+  const depths = [22, -16, 30];
+  if(heroSec && window.matchMedia('(pointer:fine)').matches){
+    heroSec.addEventListener('mousemove', (e)=>{
+      const r = heroSec.getBoundingClientRect();
+      const x = (e.clientX - r.left)/r.width - 0.5;
+      const y = (e.clientY - r.top)/r.height - 0.5;
+      blobs.forEach((b,i)=>{ if(b) b.style.transform = `translate(${x*depths[i]}px, ${y*depths[i]}px)`; });
+    });
+  }
+
+  // funnel line fill on scroll
+  const funnelTrack = document.getElementById('funnelTrack');
+  const funnelFill = document.getElementById('funnelFill');
+  if(funnelTrack){
+    const fio = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          setTimeout(()=>{ funnelFill.style.width='100%'; funnelFill.style.height='100%'; }, 200);
+          fio.unobserve(e.target);
+        }
+      });
+    }, {threshold:0.3});
+    fio.observe(funnelTrack);
+  }
+
+  // cursor glow (desktop only)
+  const glow = document.getElementById('cursorGlow');
+  if(window.matchMedia('(pointer:fine)').matches){
+    document.addEventListener('mousemove', (e)=>{
+      glow.style.opacity = '1';
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+  }
+
+  // antes/depois compare slider
+  const cSlider = document.getElementById('compareSlider');
+  const cAfter = document.getElementById('compareAfter');
+  const cHandle = document.getElementById('compareHandle');
+  let dragging = false;
+  function setCompare(x){
+    const rect = cSlider.getBoundingClientRect();
+    let pct = ((x - rect.left) / rect.width) * 100;
+    pct = Math.max(4, Math.min(96, pct));
+    cAfter.style.clipPath = `inset(0 0 0 ${pct}%)`;
+    cHandle.style.left = pct + '%';
+  }
+  cSlider.addEventListener('mousedown', (e)=>{ dragging = true; setCompare(e.clientX); });
+  window.addEventListener('mouseup', ()=> dragging = false);
+  window.addEventListener('mousemove', (e)=>{ if(dragging) setCompare(e.clientX); });
+  cSlider.addEventListener('touchstart', (e)=>{ dragging = true; setCompare(e.touches[0].clientX); });
+  cSlider.addEventListener('touchmove', (e)=>{ if(dragging) setCompare(e.touches[0].clientX); });
+  window.addEventListener('touchend', ()=> dragging = false);
+
+  // dashboard bar chart reveal
+  const dashChart = document.getElementById('dashChart');
+  if(dashChart){
+    const dio = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.querySelectorAll('.dash-bar').forEach((b,i)=>{
+            setTimeout(()=>b.classList.add('in'), i*90);
+          });
+          dio.unobserve(e.target);
+        }
+      });
+    }, {threshold:0.4});
+    dio.observe(dashChart);
+  }
+
+  // reading progress
+  window.addEventListener('scroll', ()=>{
+    const h = document.documentElement;
+    const pct = (h.scrollTop)/(h.scrollHeight - h.clientHeight) * 100;
+    document.getElementById('readBar').style.width = pct + '%';
+  });
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.12});
+  revealEls.forEach(el=>io.observe(el));
+
+  // animated counters
+  const counters = document.querySelectorAll('.counter');
+  const cio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el = e.target;
+        const target = parseInt(el.dataset.target);
+        let cur = 0;
+        const step = Math.max(1, Math.round(target/40));
+        const t = setInterval(()=>{
+          cur += step;
+          if(cur >= target){ cur = target; clearInterval(t); }
+          el.textContent = cur + (target >= 100 ? '+' : '+');
+        }, 30);
+        cio.unobserve(el);
+      }
+    });
+  }, {threshold:0.5});
+  counters.forEach(el=>cio.observe(el));
+
+  // QUIZ
+  const answers = {};
+  let currentStep = 1;
+  const totalSteps = 8;
+
+  document.querySelectorAll('.opt').forEach(opt=>{
+    opt.addEventListener('click', ()=>{
+      const group = opt.parentElement.dataset.group;
+      document.querySelectorAll(`.opt-grid[data-group="${group}"] .opt`).forEach(o=>o.classList.remove('selected'));
+      opt.classList.add('selected');
+      answers[group] = opt.dataset.value;
+      setTimeout(()=>nextStep(), 280);
+    });
+  });
+
+  function updateProgress(){
+    const pct = Math.round((currentStep/7)*100);
+    document.getElementById('progBar').style.width = Math.min(pct,100)+'%';
+    document.getElementById('stepLabel').textContent = `PERGUNTA ${Math.min(currentStep,7)} DE 7`;
+    document.getElementById('stepPct').textContent = Math.min(pct,100)+'%';
+  }
+  function goTo(step){
+    document.querySelectorAll('.q-step').forEach(s=>s.classList.remove('active'));
+    document.querySelector(`.q-step[data-step="${step}"]`).classList.add('active');
+    currentStep = step;
+    updateProgress();
+  }
+  function nextStep(){ if(currentStep < totalSteps) goTo(currentStep+1); }
+  function prevStep(){ if(currentStep > 1) goTo(currentStep-1); }
+
+  function showResult(){
+    const fin = (answers.financeiro||2) * 25;
+    const ope = (answers.operacional||2) * 25;
+    const gov = answers.gestao === 'profissional' ? 88 : answers.gestao === 'administradora' ? 70 : 55;
+    const tra = (answers.transparencia||2) * 25;
+    const overall = Math.round((fin+ope+gov+tra)/4);
+
+    document.getElementById('resultScore').textContent = overall;
+    const tagEl = document.getElementById('resultTag');
+    let tagText, tagColor, tagBg, msg;
+    if(overall >= 75){ tagText='SAUDÁVEL'; tagColor='#1E9E6B'; tagBg='#E1F5EC'; msg='Seu condomínio está bem estruturado. Mesmo assim, vale conversar sobre pontos de melhoria contínua.'; }
+    else if(overall >= 50){ tagText='ATENÇÃO'; tagColor='#DB8B00'; tagBg='#FFF1D6'; msg='Identificamos pontos que merecem atenção antes que se tornem problemas maiores.'; }
+    else { tagText='CRÍTICO'; tagColor='#E5484D'; tagBg='#FCE1E2'; msg='A gestão atual apresenta riscos relevantes. Recomendamos uma conversa o quanto antes.'; }
+    tagEl.textContent = tagText; tagEl.style.color = tagColor; tagEl.style.background = tagBg;
+    document.getElementById('resultMsg').textContent = msg;
+
+    const bd = [{label:'Financeiro', val:fin},{label:'Operacional', val:ope},{label:'Governança', val:gov},{label:'Transparência', val:tra}];
+    const bdEl = document.getElementById('breakdown');
+    bdEl.innerHTML = bd.map(b=>{
+      const color = b.val>=75?'#1E9E6B':b.val>=50?'#DB8B00':'#E5484D';
+      return `<div class="bd-row"><span>${b.label}</span><div class="bd-track"><div class="bd-fill" data-w="${b.val}" style="background:${color};"></div></div><span>${b.val}</span></div>`;
+    }).join('');
+    setTimeout(()=>{ document.querySelectorAll('.bd-fill').forEach(f=>{ f.style.width = f.dataset.w + '%'; }); }, 60);
+
+    saveLeadToCRM({fin,ope,gov,tra,overall,tagText});
+
+    goTo(8);
+  }
+
+  // ===== CRM (mesma página, aba "Painel") =====
+  const UNIT_LABEL = {1:'Até 30 unidades', 2:'31 a 60 unidades', 3:'61 a 100 unidades', 4:'Mais de 100 unidades'};
+  const GESTAO_LABEL = {morador:'Síndico morador', profissional:'Síndico profissional', administradora:'Administradora terceirizada'};
+  const INTENCAO_LABEL = {3:'Quer trocar de gestão', 2:'Está avaliando', 1:'Só pesquisando'};
+  const STAGES = [{key:'novo',label:'Novo'},{key:'contato',label:'Contato feito'},{key:'reuniao',label:'Reunião'},{key:'fechado',label:'Fechado'},{key:'perdido',label:'Perdido'}];
+  const VALUE_BY_UNIT = {1:800, 2:1300, 3:1900, 4:2800};
+  let leads = [];
+
+  async function saveLeadToCRM(scores){
+    const nowIso = new Date().toISOString();
+    const lead = {
+      id: 'lead_' + Date.now(),
+      name: document.getElementById('leadName').value || 'Sem nome',
+      phone: document.getElementById('leadPhone').value || '',
+      condo: document.getElementById('leadCondo').value || '',
+      unidades: UNIT_LABEL[answers.unidades] || '—',
+      gestaoAtual: GESTAO_LABEL[answers.gestao] || '—',
+      intencao: INTENCAO_LABEL[answers.intencao] || '—',
+      score: scores.overall,
+      scoreTag: scores.tagText,
+      status: 'novo',
+      unread: true,
+      dealValue: VALUE_BY_UNIT[answers.unidades] || 0,
+      nextFollowUp: '',
+      lostReason: '',
+      stageChangedAt: nowIso,
+      timeline: [{ ts: nowIso, text: 'Lead criado pelo diagnóstico do site' }],
+      createdAt: nowIso
+    };
+    try{
+      let current = [];
+      try{ const raw = localStorage.getItem('plena-crm-leads'); current = raw ? JSON.parse(raw) : []; }
+      catch(err){ current = []; }
+      current.unshift(lead);
+      localStorage.setItem('plena-crm-leads', JSON.stringify(current));
+    } catch(err){ console.error('Falha ao salvar lead no painel', err); }
+  }
+
+  function showView(v){
+    document.getElementById('siteView').style.display = v==='site' ? 'block' : 'none';
+    document.getElementById('appView').style.display = v==='app' ? 'block' : 'none';
+    if(v==='app'){ loadLeads(); showPanel('dash'); window.scrollTo(0,0); }
+  }
+
+  function checkPass(){
+    const val = document.getElementById('gatePass').value;
+    if(val === '1234'){ document.getElementById('gate').style.display = 'none'; }
+    else { alert('Senha incorreta (nesse protótipo a senha é 1234).'); }
+  }
+
+  function showPanel(p){
+    document.getElementById('panelDash').style.display = p==='dash' ? 'block' : 'none';
+    document.getElementById('panelLeads').style.display = p==='leads' ? 'block' : 'none';
+    document.getElementById('panelAnalytics').style.display = p==='analytics' ? 'block' : 'none';
+    document.getElementById('navDash').classList.toggle('active', p==='dash');
+    document.getElementById('navLeads').classList.toggle('active', p==='leads');
+    document.getElementById('navAnalytics').classList.toggle('active', p==='analytics');
+    document.getElementById('searchLeads').style.display = p==='leads' ? 'block' : 'none';
+    document.getElementById('panelTitle').firstChild.textContent = p==='dash' ? 'Dashboard' : p==='leads' ? 'Leads' : 'Análises';
+    document.getElementById('panelSubtitle').textContent = p==='dash' ? 'Visão geral dos leads recebidos pelo site' : p==='leads' ? 'Preenchidos pelo quiz do site — nada digitado à mão' : 'De onde vêm os leads e o que eles têm em comum';
+    renderCRM();
+  }
+
+  async function loadLeads(){
+    try{ const raw = localStorage.getItem('plena-crm-leads'); leads = raw ? JSON.parse(raw) : []; }
+    catch(err){ leads = []; }
+    renderCRM();
+  }
+  async function saveLeadsList(){
+    try{ localStorage.setItem('plena-crm-leads', JSON.stringify(leads)); } catch(err){ console.error(err); }
+  }
+  function escapeHtml(str){ return (str||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+  function initials(name){ return (name||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase(); }
+  function timeAgo(iso){
+    const diff = Math.max(0, Date.now() - new Date(iso).getTime());
+    const min = Math.floor(diff/60000);
+    if(min < 1) return 'agora';
+    if(min < 60) return `há ${min} min`;
+    const h = Math.floor(min/60);
+    if(h < 24) return `há ${h}h`;
+    return `há ${Math.floor(h/24)}d`;
+  }
+  function priorityOf(score){ return score < 50 ? 'hot' : score < 75 ? 'warm' : 'cold'; }
+  function priorityLabel(p){ return p==='hot' ? '🔥 Quente' : p==='warm' ? '🟠 Morno' : '🔵 Frio'; }
+  function fmtBRL(v){ return 'R$ ' + Number(v||0).toLocaleString('pt-BR'); }
+  function daysSince(iso){ if(!iso) return 0; return Math.floor((Date.now() - new Date(iso).getTime())/86400000); }
+
+  function renderCRM(){
+    renderDashboard();
+    renderAnalytics();
+    const kanban = document.getElementById('kanban');
+    if(!kanban) return;
+    const q = (document.getElementById('searchLeads').value||'').toLowerCase();
+    const filtered = leads.filter(l => !q || l.name.toLowerCase().includes(q) || (l.condo||'').toLowerCase().includes(q));
+
+    kanban.innerHTML = STAGES.map(stage=>{
+      const items = filtered.filter(l=>l.status===stage.key);
+      const cards = items.length ? items.map(l=>{
+        const idx = STAGES.findIndex(s=>s.key===stage.key);
+        const next = STAGES.filter(s=>s.key!=='perdido')[STAGES.filter(s=>s.key!=='perdido').findIndex(s=>s.key===stage.key)+1];
+        const scoreColor = l.score>=75 ? '#1E9E6B' : l.score>=50 ? '#DB8B00' : '#E5484D';
+        const scoreBg = l.score>=75 ? 'rgba(30,158,107,0.18)' : l.score>=50 ? 'rgba(219,139,0,0.18)' : 'rgba(229,72,77,0.18)';
+        const prio = priorityOf(l.score);
+        const daysInStage = daysSince(l.stageChangedAt || l.createdAt);
+        const isOpen = l.status!=='fechado' && l.status!=='perdido';
+        const stagnant = isOpen && daysInStage >= 5;
+        const overdue = isOpen && l.nextFollowUp && new Date(l.nextFollowUp) < new Date();
+        return `<div class="lead-card prio-${prio} ${l.unread?'unread':''}" draggable="true"
+            ondragstart="onDragStart(event,'${l.id}')" ondragend="onDragEnd(event)"
+            onclick="openLeadModal('${l.id}')">
+          <div class="lc-top">
+            <div class="lc-avatar">${initials(l.name)}</div>
+            <span class="lc-score" style="color:${scoreColor}; background:${scoreBg}; margin-bottom:0;">Score ${l.score}</span>
+            <span class="lc-time">${timeAgo(l.createdAt)}</span>
+          </div>
+          <div class="lc-name">${escapeHtml(l.name)}</div>
+          <div class="lc-meta">${escapeHtml(l.phone)} ${l.condo ? '· ' + escapeHtml(l.condo) : ''}</div>
+          <div class="lc-tags">
+            <span class="lc-tag">${fmtBRL(l.dealValue)}/mês</span>
+            ${stagnant ? `<span class="lc-tag warn">🐌 parado ${daysInStage}d</span>` : ''}
+            ${overdue ? `<span class="lc-tag danger">⏰ retorno atrasado</span>` : ''}
+          </div>
+          <div class="lc-actions">
+            <span style="font-size:0.7rem; color:#8794C4;">${priorityLabel(prio)}</span>
+            ${next ? `<button onclick="event.stopPropagation(); moveLead('${l.id}','${next.key}')">→ ${next.label}</button>` : ''}
+          </div>
+        </div>`;
+      }).join('') : `<div class="kcol-empty">Nenhum lead aqui ainda</div>`;
+      return `<div class="kcol" data-stage="${stage.key}" ondragover="onDragOver(event,this)" ondragleave="onDragLeave(this)" ondrop="onDrop(event,this)">
+        <div class="kcol-head"><h4>${stage.label}</h4><span class="kcol-count">${items.length}</span></div>${cards}
+      </div>`;
+    }).join('');
+
+    const unreadCount = leads.filter(l=>l.unread).length;
+    const badge = document.getElementById('bellBadge');
+    if(unreadCount > 0){ badge.style.display='flex'; badge.textContent = unreadCount; } else { badge.style.display='none'; }
+  }
+
+  function renderDashboard(){
+    const total = leads.length;
+    const hot = leads.filter(l=>priorityOf(l.score)==='hot').length;
+    const avgScore = total ? Math.round(leads.reduce((s,l)=>s+l.score,0)/total) : 0;
+    const unread = leads.filter(l=>l.unread).length;
+    const openLeads = leads.filter(l=>l.status!=='fechado' && l.status!=='perdido');
+    const pipelineValue = openLeads.reduce((s,l)=>s+(l.dealValue||0),0);
+    const overdueCount = openLeads.filter(l=>l.nextFollowUp && new Date(l.nextFollowUp) < new Date()).length;
+    const kt = document.getElementById('kpiTotal'); if(kt) kt.textContent = total;
+    const kh = document.getElementById('kpiHot'); if(kh) kh.textContent = hot;
+    const ks = document.getElementById('kpiScore'); if(ks) ks.textContent = avgScore;
+    const ku = document.getElementById('kpiUnread'); if(ku) ku.textContent = unread;
+    const kp = document.getElementById('kpiPipeline'); if(kp) kp.textContent = fmtBRL(pipelineValue);
+    const ko = document.getElementById('kpiOverdue'); if(ko) ko.textContent = overdueCount;
+
+    const mc = document.getElementById('miniChart');
+    if(mc){
+      const max = Math.max(1, ...STAGES.map(s=>leads.filter(l=>l.status===s.key).length));
+      mc.innerHTML = STAGES.map(s=>{
+        const count = leads.filter(l=>l.status===s.key).length;
+        const h = Math.round((count/max)*100);
+        return `<div class="mc-col"><span class="mc-num">${count}</span><div class="mc-bar" data-h="${h}" style="height:${h}%;"></div><span class="mc-label">${s.label}</span></div>`;
+      }).join('');
+      setTimeout(()=>{ mc.querySelectorAll('.mc-bar').forEach(b=>b.classList.add('in')); }, 50);
+    }
+  }
+
+  function renderAnalytics(){
+    const total = leads.length;
+    const fechados = leads.filter(l=>l.status==='fechado');
+    const perdidos = leads.filter(l=>l.status==='perdido');
+    const conv = document.getElementById('convRate');
+    if(conv) conv.textContent = total ? Math.round((fechados.length/total)*100) + '%' : '0%';
+    const lr = document.getElementById('lostRate');
+    if(lr) lr.textContent = total ? Math.round((perdidos.length/total)*100) + '%' : '0%';
+    const closedValue = fechados.reduce((s,l)=>s+(l.dealValue||0),0);
+    const kcv = document.getElementById('kpiClosedValue'); if(kcv) kcv.textContent = fmtBRL(closedValue);
+    const avgTicket = total ? Math.round(leads.reduce((s,l)=>s+(l.dealValue||0),0)/total) : 0;
+    const kat = document.getElementById('kpiAvgTicket'); if(kat) kat.textContent = fmtBRL(avgTicket);
+
+    function buildBreakdown(containerId, groupFn, base){
+      const el = document.getElementById(containerId);
+      if(!el) return;
+      const list = base || leads;
+      if(!list.length){ el.innerHTML = '<div class="kcol-empty">Ainda sem leads</div>'; return; }
+      const counts = {};
+      list.forEach(l=>{ const k = groupFn(l) || '—'; counts[k] = (counts[k]||0)+1; });
+      const entries = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+      const listTotal = list.length;
+      el.innerHTML = entries.map(([label,count])=>{
+        const pct = Math.round((count/listTotal)*100);
+        return `<div class="bd-row"><div class="bd-row-top"><span>${escapeHtml(label)}</span><b>${count} · ${pct}%</b></div><div class="bd-bar-track"><div class="bd-bar-fill" style="width:${pct}%;"></div></div></div>`;
+      }).join('');
+      setTimeout(()=>{ el.querySelectorAll('.bd-bar-fill').forEach(b=>b.classList.add('in')); }, 30);
+    }
+
+    buildBreakdown('bdGestao', l=>l.gestaoAtual);
+    buildBreakdown('bdIntencao', l=>l.intencao);
+    buildBreakdown('bdUnidades', l=>l.unidades);
+    buildBreakdown('bdPrioridade', l=>priorityLabel(priorityOf(l.score)));
+
+    const cardMotivo = document.getElementById('cardMotivoPerda');
+    if(cardMotivo){
+      if(perdidos.length){
+        cardMotivo.style.display = 'block';
+        buildBreakdown('bdMotivoPerda', l=>l.lostReason || 'Sem motivo registrado', perdidos);
+      } else {
+        cardMotivo.style.display = 'none';
+      }
+    }
+  }
+
+  function exportLeadsCSV(){
+    if(!leads.length){ alert('Ainda não há leads pra exportar.'); return; }
+    const headers = ['Nome','Telefone','Condomínio','Unidades','Gestão atual','Intenção','Score','Prioridade','Etapa','Valor estimado (R$/mês)','Próximo retorno','Motivo de perda','Criado em'];
+    const rows = leads.map(l => [
+      l.name, l.phone, l.condo, l.unidades, l.gestaoAtual, l.intencao, l.score,
+      priorityLabel(priorityOf(l.score)).replace(/[^\w\s]/g,'').trim(),
+      (STAGES.find(s=>s.key===l.status)||{}).label || l.status,
+      l.dealValue||0, l.nextFollowUp||'', l.lostReason||'', l.createdAt
+    ]);
+    const csv = [headers, ...rows].map(r => r.map(v => `"${String(v??'').replace(/"/g,'""')}"`).join(';')).join('\n');
+    const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'leads-plena.csv';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // drag and drop
+  let dragId = null;
+  function onDragStart(e,id){ dragId = id; e.target.classList.add('dragging'); }
+  function onDragEnd(e){ e.target.classList.remove('dragging'); }
+  function onDragOver(e,col){ e.preventDefault(); col.classList.add('drag-over'); }
+  function onDragLeave(col){ col.classList.remove('drag-over'); }
+  async function onDrop(e,col){
+    e.preventDefault(); col.classList.remove('drag-over');
+    if(dragId){ await moveLead(dragId, col.dataset.stage); }
+    dragId = null;
+  }
+
+  async function openLead(id){ const l = leads.find(x=>x.id===id); if(l && l.unread){ l.unread=false; await saveLeadsList(); renderCRM(); } }
+  async function moveLead(id, newStatus){
+    const l = leads.find(x=>x.id===id);
+    if(!l || l.status===newStatus) return;
+    if(newStatus === 'perdido'){
+      const reason = prompt('Motivo da perda (opcional, ajuda a entender o padrão depois):', '');
+      l.lostReason = (reason||'').trim();
+    }
+    const fromLabel = (STAGES.find(s=>s.key===l.status)||{}).label || l.status;
+    const toLabel = (STAGES.find(s=>s.key===newStatus)||{}).label || newStatus;
+    l.status = newStatus;
+    l.stageChangedAt = new Date().toISOString();
+    l.timeline = l.timeline || [];
+    l.timeline.unshift({ ts: l.stageChangedAt, text: `Mudou de "${fromLabel}" para "${toLabel}"` + (newStatus==='perdido' && l.lostReason ? ` — motivo: ${l.lostReason}` : '') });
+    await saveLeadsList();
+    renderCRM();
+  }
+  async function markAllRead(){ leads.forEach(l=>l.unread=false); await saveLeadsList(); renderCRM(); }
+
+  // lead detail modal
+  async function openLeadModal(id){
+    const l = leads.find(x=>x.id===id);
+    if(!l) return;
+    if(l.unread){ l.unread=false; await saveLeadsList(); renderCRM(); }
+    const prio = priorityOf(l.score);
+    document.getElementById('lmBody').innerHTML = `
+      <div class="lm-head">
+        <div class="lm-avatar">${initials(l.name)}</div>
+        <div><div class="lm-name">${escapeHtml(l.name)}</div><div class="lm-meta">${escapeHtml(l.phone)} · ${timeAgo(l.createdAt)} · ${priorityLabel(prio)}</div></div>
+      </div>
+      <div class="lm-section">
+        <h5>Diagnóstico</h5>
+        <div class="lm-grid">
+          <div class="lm-item"><span>Score geral</span><b>${l.score} · ${escapeHtml(l.scoreTag||'')}</b></div>
+          <div class="lm-item"><span>Condomínio</span><b>${escapeHtml(l.condo||'—')}</b></div>
+          <div class="lm-item"><span>Unidades</span><b>${escapeHtml(l.unidades)}</b></div>
+          <div class="lm-item"><span>Gestão atual</span><b>${escapeHtml(l.gestaoAtual)}</b></div>
+          <div class="lm-item" style="grid-column:1/-1;"><span>Intenção</span><b>${escapeHtml(l.intencao)}</b></div>
+        </div>
+      </div>
+      <div class="lm-section">
+        <h5>Negócio</h5>
+        <div class="lm-grid">
+          <div class="lm-item"><span>Valor estimado (mensal)</span>
+            <input type="number" id="lmValue" value="${l.dealValue||0}" step="50" onblur="saveDealValue('${l.id}')" style="width:100%; background:transparent; border:none; color:#fff; font-size:0.88rem; font-weight:700; font-family:inherit;">
+          </div>
+          <div class="lm-item"><span>Próximo retorno</span>
+            <input type="date" id="lmFollowUp" value="${l.nextFollowUp||''}" onchange="saveFollowUp('${l.id}')" style="width:100%; background:transparent; border:none; color:#fff; font-size:0.85rem; font-family:inherit;">
+          </div>
+        </div>
+      </div>
+      <div class="lm-section">
+        <h5>Etapa</h5>
+        <div class="lm-stages">
+          ${STAGES.map(s=>`<button class="${l.status===s.key?'active':''}" onclick="moveLead('${l.id}','${s.key}'); openLeadModal('${l.id}');">${s.label}</button>`).join('')}
+        </div>
+        ${l.status==='perdido' && l.lostReason ? `<div style="margin-top:10px; font-size:0.78rem; color:#8794C4;">Motivo: ${escapeHtml(l.lostReason)}</div>` : ''}
+      </div>
+      <div class="lm-section lm-notes">
+        <h5>Anotações internas</h5>
+        <textarea id="lmNotes" placeholder="Ex: já ligamos, aguardando retorno do conselho…" onblur="saveNote('${l.id}')">${escapeHtml(l.notes||'')}</textarea>
+      </div>
+      <div class="lm-section">
+        <h5>Histórico</h5>
+        <div class="lm-timeline">
+          ${(l.timeline||[]).map(t=>`<div class="lm-tl-item"><span class="lm-tl-time">${timeAgo(t.ts)}</span><span>${escapeHtml(t.text)}</span></div>`).join('') || '<div class="kcol-empty">Sem histórico ainda</div>'}
+        </div>
+      </div>
+    `;
+    document.getElementById('leadModal').classList.add('open');
+  }
+  function closeLeadModal(){ document.getElementById('leadModal').classList.remove('open'); }
+  async function saveNote(id){
+    const l = leads.find(x=>x.id===id);
+    if(l){ l.notes = document.getElementById('lmNotes').value; await saveLeadsList(); }
+  }
+  async function saveDealValue(id){
+    const l = leads.find(x=>x.id===id);
+    if(!l) return;
+    const v = parseInt(document.getElementById('lmValue').value, 10) || 0;
+    l.dealValue = v;
+    await saveLeadsList();
+    renderCRM();
+  }
+  async function saveFollowUp(id){
+    const l = leads.find(x=>x.id===id);
+    if(!l) return;
+    l.nextFollowUp = document.getElementById('lmFollowUp').value;
+    await saveLeadsList();
+    renderCRM();
+  }
+
+  function toggleFaq(el){
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>{ i.classList.remove('open'); i.querySelector('.faq-a').style.maxHeight = null; });
+    if(!isOpen){ item.classList.add('open'); const a = item.querySelector('.faq-a'); a.style.maxHeight = a.scrollHeight + 'px'; }
+  }
+
+  updateProgress();
+</script>
+
+</body>
+</html>
